@@ -16,32 +16,88 @@
 
 <owl:ObjectProperty rdf:about="#isGlyphOf"/>
 
-<owl:Class rdf:about="#InsulatorGlyph">
+<owl:ObjectProperty rdf:about="#hasGlyph"/>
+
+<owl:AnnotationProperty rdf:about="#prototypicalExample"/>
+
+<owl:AnnotationProperty rdf:about="#notes"/>
+
+<owl:Class rdf:about="#InhibitionGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
-  <owl:equivalentClass>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Glyph"/>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#isGlyphOf"/>
-          <owl:someValuesFrom>
-            <owl:Class>
-              <owl:intersectionOf rdf:parseType="Collection">
-                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
-                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
-                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO_0000167"/>
-                </owl:Restriction>
-              </owl:intersectionOf>
-            </owl:Class>
-          </owl:someValuesFrom>
-        </owl:Restriction>
-      </owl:intersectionOf>
-    </owl:Class>
-  </owl:equivalentClass>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/inhibition-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An arrow whose head is a bar, suggesting blocking:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Inhibition</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Repression of pTAL14 promoter by TAL14</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left intentionally blank*</notes>
 </owl:Class>
 
-<owl:Class rdf:about="#InsulatorGlyph2">
+<owl:Class rdf:about="#DegradationGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/degradation-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Identical to the Process glyph, but with an empty set at the sink of the arrowhead:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Degradation</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cellular recycling of mRNA</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left intentionally blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#StimulationGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/stimulation-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An arrow with an head that is empty or of a different color than the line:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Stimulation</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Activation of pTAL14 promoter by Gal4VP16 activator</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left intentionally blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#ControlGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/control-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An arrow with a diamond head:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Control</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Inversion of a sequence flanked by FRT sites by FLP recombinase</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left intentionally blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#ProcessGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/process-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A square node:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Process</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Association of gRNA and Cas9 to form an active CRISPR complex.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The process glyph is based on the SBGN Process Description process glyph.
+
+The assocated SBO term also covers:
+
+- SBO:0000176 Biochemical Reaction
+- SBO:0000177 Non-covalent Binding (sink is a Complex)</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#StabilityElementGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
   <owl:equivalentClass>
     <owl:Class>
@@ -55,7 +111,7 @@
                 <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
                 <owl:Restriction>
                   <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
-                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO_0000167"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0001979"/>
                 </owl:Restriction>
               </owl:intersectionOf>
             </owl:Class>
@@ -64,9 +120,302 @@
       </owl:intersectionOf>
     </owl:Class>
   </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Stability Element is a "stem-top" glyph for describing small sites. In this system:
+
+- the top glyph indicates the type of site (e.g., Stability Element)
+- the stem glyph indicates whether the site affects DNA, RNA, or protein (respectively: straight, wavy, or looped)</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Stability Element</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PEST tag, 3’ Hairpin</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RNA Stability Element glyph was previously also associated with SO:0001957, but that SO term has been declared obsolete in Sequence Ontology.
+
+This glyph is not backwards compatible with SBOL Visual 1.0.
+
+Despite both being stem-top glyphs, Biopolymer Location is not a parent to Stability Element, since the length of a Stability Element is typically multiple bases / amino acids.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#RibosomeEntrySiteGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/ribosome-entry-site-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000139"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The ribosome entry promoter glyph is a half-ovoid sitting on the backbone, suggesting an attached ribosome beginning transcription:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ribosome Entry Site</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">T7g10 ribosome binding site</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
 </owl:Class>
 
 <owl:Class rdf:about="#AptamerGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/aptamer-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000031"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The aptamer glyph is a cartoon diagram of a prototypical nucleic acid secondary structure for an aptamer:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Aptamer</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">theophylline aptamer</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#ChromosomalLocusGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/chromosomal-locus-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000830"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">
+The glyph to indicate integration into a chromosome is an S-shaped curve of the backbone, suggesting something that might be part of a larger looping structure:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Chromosomal Locus</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">_B. subtilis_ amyE locus</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Complementary "left" and "right" versions of this glyph SHOULD be used together, flanking the region whose genomic context is being described.
+
+The Omitted Detail glyph SHOULD generally be contatenated to indicate that there is information about the chromosome not being represented.
+
+Examples of RECOMMENDED usage:
+
+- A functional unit consisting of promoter, ribosome entry site, CDS, and terminator, all integrated together into the chromosome:
+
+![glyph specification](chromosomal-locus-example.png)
+
+- Two functional units, one integrated into the amyE locus, another integrated into the ganA locus:
+
+![glyph specification](chromosomal-locus-example2.png)</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#5'OverhangSiteGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0001933"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The 5' overhang site glyph is an image of a strand of DNA extended on the 5' edge of its forward strand:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5' Overhang Site</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EcoRI site after cleavage.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The complementary 3' Overhang Site glyph is a reflection of the 5' Overhang Site.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#SignatureGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/signature-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0001978"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The signature glyph is a box sitting atop the backbone with an X and line inside it, suggesting a signature on a form:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Signature</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DNA Barcode</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#PolyASiteGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/polyA-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000553"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The polyA site glyph is a sequence of As sitting atop the backbone:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PolyA Site</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">polyA tail on mammalian coding sequence</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#AssociationGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/association-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A circular node:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Association</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Association of gRNA and Cas9 to form an active CRISPR complex.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The association glyph is based on the SBGN Process Description association glyph.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#DissociationGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/dissociation-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An circular node inside another circle</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dissociation</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dissociation of an active CRISPR complex into gRNA and Cas9.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The dissociation glyph is based on the SBGN Process Description dissociation glyph.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#BiopolymerLocationGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0001237"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">
+Biopolymer Location is a "stem-top" glyph for describing small sites. In this system:
+
+- the top glyph indicates the type of site (e.g., Biopolymer Location)
+- the stem glyph indicates whether the site affects DNA, RNA, or protein (respectively: straight, wavy, or looped)</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Biopolymer Location</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CRISPR-targeted insertion site, protease site, mutation site</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Biopolymer Location is a general glyph for all zero- and one-length sequence features, including insertion and deletion sites and X-ase cut sites.
+
+Note also that Biopolymer Location does not cover stability elements, since their length is typically multiple bases / amino acids.
+
+Describing a Restriction Enzyme Cleavage Site with a vertical line glyph on a DNA backbone (as done previously in SBOL Visual 1.0 via the Restriction Enzyme Recognition Site glyph) can persist in a SBOL Visual 2 diagram and still be considered compliant with SBOL Visual 2, where it is now classified as a Biopolymer Location (which is a superclass of cleavage sites). Thus, the Biopolymer Location glyph from SBOL Visual 2.0 is backwards compatible with the Restriction Enzyme Recognition Site glyph from SBOL Visual 1.0.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#CleavageSiteGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
   <owl:equivalentClass>
     <owl:Class>
@@ -83,8 +432,8 @@
                   <owl:someValuesFrom>
                     <owl:Class>
                       <owl:unionOf rdf:parseType="Collection">
-                        <rdf:Description rdf:about="http://identifiers.org/so/SO_0000031"/>
-                        <rdf:Description rdf:about="http://identifiers.org/so/SO_0000031_gm"/>
+                        <rdf:Description rdf:about="http://identifiers.org/so/SO:0001688"/>
+                        <rdf:Description rdf:about="http://identifiers.org/so/SO:0001687"/>
                       </owl:unionOf>
                     </owl:Class>
                   </owl:someValuesFrom>
@@ -96,6 +445,898 @@
       </owl:intersectionOf>
     </owl:Class>
   </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cleavage Site is a "stem-top" glyph for describing small sites. In this system:
+
+- the top glyph indicates the type of site (e.g., Cleavage Site)
+- the stem glyph indicates whether the site affects DNA, RNA, or protein (respectively: straight, wavy, or looped)</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cleavage Site</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RNAse E site, BamHI</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SO:0000061 (which was previously associated with Restriction Enzyme Recognition Site in SBOL Visual 1.0) is no longer associated with the DNA Cleavage glyph in SBOL Visual 2, as SO:0000061 refers to the binding site and not the location of cleavage.
+
+The Ribonuclease Site, Protease Site, and Restriction Enzyme Recognition Site glyphs from SBOL Visual 1.0 are now replaced by the Cleavage Site glyph with the appropriate stem.
+
+Describing a Restriction Enzyme Cleavage Site with a vertical line glyph on a DNA backbone (as done previously in SBOL Visual 1.0 via the Restriction Enzyme Recognition Site glyph) can persist in a SBOL Visual 2 diagram and still be considered compliant with SBOL Visual 2, where it is now classified as a Biopolymer Location (which is a superclass of cleavage sites). Thus, the Biopolymer Location glyph from SBOL Visual 2.0 is backwards compatible with the Restriction Enzyme Recognition Site glyph from SBOL Visual 1.0.
+
+The 5' Sticky Restriction Site, 3' Sticky Restriction Site, and Blunt Restriction Site glyphs remain unchanged, and are more specific children/derivatives of the DNA-Stem Cleavage-Top glyph.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#OriginofReplicationGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/origin-of-replication-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000296"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The origin of replication glyph is a circle suggesting the "bulge" opened in a piece of circular DNA when replication is beginning:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Origin of Replication</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">human herpesvirus-6 OOR</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The label on an origin of replication glyph is RECOMMENDED as the location to label either specifically the identity of the origin of replication or the name of the entire plasmid backbone more generally.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#PrimerBindingSiteGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/primer-binding-site-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0005850"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The primer binding site glyph is a line with a bent end suggesting a partially complementary strand of nucleic acid attaching to the backbone:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Primer Binding Site</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">seq-F</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#TerminatorGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/terminator-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000141"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The terminator is a T sitting atop the backbone:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Terminator</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">T1 terminator</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#Non-CodingRNAGeneGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000834"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The non-coding RNA glyph is a rectangular box whose top is a single-stranded RNA "wiggle":</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Non-Coding RNA Gene</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gRNA sequence for targeting a dCas9 repressor</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#UnspecifiedGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/replacement-glyph-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://www.biopax.org/release/biopax-level3.owl#PhysicalEntity"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unspecified is RECOMMENDED to be represented by the unicode "replacement character" glyph, indicating a missing or invalid symbol:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unspecified</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An anonymous chemical species that is missing any information about its nature or intended purpose.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Unspecified glyph is intended for showing where a chemical species' type is missing (or, equivalently, given only the uninformative root role). It should never appear with well-curated designs or diagrams.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#UnspecifiedGlyphAlternative">
+  <rdfs:subClassOf rdf:resource="#UnspecifiedGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/generic-sbgn-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An alternative is the SBGN "generic species" glyph, which is an ellipse:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unspecified</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#CircularPlasmidGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/circular-plasmid-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0002211"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">
+The glyph to indicate embedding in a plasmid is a turn of the backbone indicating its circular structure:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Circular Plasmid</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">_E. coli_ p15A plasmid</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Note that for SBOL data representations, circularity SHOULD also be indicated with a type of SO:0000988.
+
+Complementary "left" and "right" versions of this glyph SHOULD be used together, flanking the region whose genomic context is being described.
+
+The Omitted Detail glyph SHOULD generally be concatenated to indicate that there is information about the plasmid not being represented.
+
+Example of RECOMMENDED usage: a plasmid containing a functional unit consisting of promoter, ribosome entry site, CDS, and terminator:
+
+![glyph specification](circular-plasmid-example.png)</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#CompositeGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/composite-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">
+The glyph for Composite is dashed "expanding lines" connecting any "base" glyph representing the more abstract composite (e.g., Omitted Detail, or Terminator, or Promoter) to a backbone diagramming the contents of the composite. Note the bounding box is indicating the location of the base glyph, and would scale with that glyph.</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Composite</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An "expression cassette" containing a ribosome entry site, coding sequence, and terminator.
+
+In this case, the recommended "base" glyph would be Engineered Region.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An "abbreviated" representation of composite, simply indicating that more structure is available, can be made by using short lines and placing only an Omitted Detail glyph in the secondary backbone. For example, here is an example of an abbreviated composite promoter: 
+
+![glyph specification](abbreviated-composite-example.png)
+
+and a composite with an Engineered Region of otherwise unspecified content:
+
+![glyph specification](abbreviated-composite-example2.png)</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#CDSGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/cds-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000316"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The coding sequence glyph is a "box" with one side bent out arrow-like to show direction:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CDS</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">α-Hemoglobin coding sequence</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#CDSGlyphAlternative">
+  <rdfs:subClassOf rdf:resource="#CDSGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/cds-arrow-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alternately, CDS may be represented as a block arrow:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CDS</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#NoGlyphAssignedGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/no-glyph-assigned-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When a species has no assigned glyph it is RECOMMENDED that a user provide their own glyph. The user is also encouraged to submit the new glyph for possible adoption into the SBOLv standard.
+
+An alternative option is to have a bracket, suggesting information that needs to be filled in:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">No Glyph Assigned</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">No Glyph Assigned is intended to be used for any chemical species whose type is not covered by other SBOL Visual glyphs.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">No Glyph Assigned is intended for molecular species with a defined specific type that happens to not yet be covered by available approved glyphs (other than the root). It is more likely to appear in machine-generated diagrams than in human-generated diagrams, since humans are likely to invent and use their own glyph for the purpose.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#InsulatorGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/insulator-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000627"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The insulator glyph is a box inside another box that isolates it from its environment:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Insulator</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RiboJ</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#OriginofTransferGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/origin-of-transfer-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000724"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The origin of transfer glyph is circular like origin of replication, but also includes an outbound arrow:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Origin of Transfer</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">oriT</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#EngineeredRegionGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/engineered-region-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000804"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">
+Engineered Region is represented by a plain rectangle suggesting a blank slate to be written upon:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Engineered Region</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An "expression cassette" containing a ribosome entry site, coding sequence, and terminator.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#StickyEndRestrictionEnzymeCleavageSiteGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0001976"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The 5' sticky restriction site glyph is an image of the lines along which two strands of DNA will be cut into 5' sticky ends. Vertical position with respect to the backbone is in a break in a single backbone:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sticky End Restriction Enzyme Cleavage Site</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EcoRI restriction site.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The complementary 3' Sticky Restriction Site glyph is a reflection of the 5' Sticky Restriction Site.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#BluntRestrictionSiteGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/blunt-restriction-site-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0001691"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The blunt restriction site glyph is an image of two brackets facing away from one another to make a smooth-edged gap:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Blunt Restriction Site</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EcoRV restriction site</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#OmittedDetailGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/omitted-detail-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Omitted Detail glyph is a break in the backbone with an ellipsis to indicate that material would normally be in that location:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Omitted Detail</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A diagram in which a sequence feature is not drawn.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This glyph actually places a "break" in the nucleic acid backbone.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#StopSite(TranscritionTranslationEndPoint)Glyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000327"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">
+Transcription/Translation End Point is a "stem-top" glyph for describing small sites. In this system:
+
+- the top glyph indicates the type of site (e.g., Biopolymer Location)
+- the stem glyph indicates whether the site affects DNA, RNA, or protein (respectively: straight, wavy, or looped)</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Stop Site (Transcrition/Translation End Point)</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Location where a terminator causes transcription to stop, stop codon</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Note that the number of points in the asterisk is not specified, accomodating font differences.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#SpecificRecombinationSiteGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/specific-recombination-site-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000299"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The specific recombination site glyph is a triangle, centered on the backbone, as has appeared in a number of recombinase circuit papers:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Specific Recombination Site</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">flippase recognition target (FRT) site</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#OperatorBindingSiteGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000409"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The operator glyph is an open "cup" suggesting a binding location:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Operator / Binding Site</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gal4 binding site in an activatable promoter.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This glyph puts a "dent" in the backbone line.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#MacromoleculeGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/macromolecule-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://www.biopax.org/release/biopax-level3.owl#Protein"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The macromolecule glyph is a diagonally offset union of a large and small circle, intended to invoke the complex shapes of proteins:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macromolecule</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">AraC</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">It is unclear whether this should be just "Protein" or whether we also want it to be able to repesent multi-component elements like a protein composed of multiple sub-units or a complex polymer.</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#MacromoleculeGlyphAlternative">
+  <rdfs:subClassOf rdf:resource="#MacromoleculeGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/macromolecule-sbgn-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An alternative is the SBGN macromolecule glyph, a rounded rectangle:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Macromolecule</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#Double-StrandedNucleicAcidGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/dsNA-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://www.biopax.org/release/biopax-level3.owl#Dna"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for dsNA is a double-helix:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Double-Stranded Nucleic Acid</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DNA fragment during assembly</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left intentionally blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#Double-StrandedNucleicAcidGlyphAlternative">
+  <rdfs:subClassOf rdf:resource="#Double-StrandedNucleicAcidGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/na-sbgn-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An alternative is the SBGN "nucleic acid" half-round rectangle:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Double-Stranded Nucleic Acid</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#ComplexGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://www.biopax.org/release/biopax-level3.owl#Complex"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules of comprising the complex.  For example, a protein bound to a small molecule, a guide RNA, or another protein:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Complex</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Arabinose bound to AraC</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left intentionally blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#Single-StrandedNucleicAcidGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/ssNA-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://www.biopax.org/release/biopax-level3.owl#Rna"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for ssNA is a wiggly line:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Single-Stranded Nucleic Acid</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mRNA, gRNA, siRNA</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left intentionally blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#Single-StrandedNucleicAcidGlyphAlternative">
+  <rdfs:subClassOf rdf:resource="#Single-StrandedNucleicAcidGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/na-sbgn-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An alternative is the SBGN "nucleic acid" half-round rectangle:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Single-Stranded Nucleic Acid</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#SmallMoleculeGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/small-molecule-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://www.biopax.org/release/biopax-level3.owl#SmallMolecule"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The small molecule glyph is a circle that stretches sideways into a "stadium" to accomodate longer names:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Small Molecule</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Arabinose</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left intentionally blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#PromoterSiteGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/promoter-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000167"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The promoter glyph is a bent arrow pointing forward, suggesting the action of transcription from its transcription start site:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Promoter Site</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The lacYZA promoter</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#AssemblyScarGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/assembly-scar-specification.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0001953"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The assembly scar glyph is an "equal sign" image, the pattern produced by the union of a 5' sticky end and 3' sticky end glyph. The scar will cover the backbone, creating a visual break suggesting the potential disruption associated with a scar:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Assembly Scar</rdfs:label>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ligated sticky ends following BioBrick assembly.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#AssemblyScarGlyphAlternative">
+  <rdfs:subClassOf rdf:resource="#AssemblyScarGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasGlyph"/>
+      <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/assembly-scar-specification-doublestrand.png"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">With a double-stranded backbone:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Assembly Scar</rdfs:label>
 </owl:Class>
 
 

@@ -14,7 +14,6 @@ class mdContent (object):
     
     
     
-    
     def parseMdFile(self):
         print ("file:" + self.filePath)
         blockData=""
@@ -36,9 +35,11 @@ class mdContent (object):
                     self._example=blockData
                     blockData=""
                 else: 
-                    blockData= blockData + line.rstrip()                    
+                    blockData= blockData + line#.rstrip()                    
+                
+                self._notes=blockData    
+                
                     
-    
     def __init__(self, mainFolder, filePath):
         self.mainFolder = mainFolder
         self.filePath = filePath
@@ -72,6 +73,10 @@ class mdContent (object):
     @property
     def example(self):
         return self._example  
+    
+    @property
+    def notes(self):
+        return self._notes  
     
     
     

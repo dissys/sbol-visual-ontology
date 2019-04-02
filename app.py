@@ -17,16 +17,18 @@ sbolVisualDir= "../SBOL-visual/Glyphs"
 def parseFile(filePath):
     #print("fileDir:" + filePath)
     dir=os.path.dirname(filePath)
-    if dir.endswith("aptamer"):      
-        print("aptamer found")
-        md=mdContent(sbolVisualDir,filePath) 
-        md.parseMdFile() 
-        addOntologyTerms(md)
-        print(md.title)
-        print(md.terms)
-        print(md.glyphs)
-        print(md.example)
-        print ("done!")
+    #if dir.endswith("aptamer"):      
+    #if dir.endswith("macromolecule"):      
+    print("aptamer found")
+    md=mdContent(sbolVisualDir,filePath) 
+    md.parseMdFile() 
+    addOntologyTerms(md)
+    print(md.title)
+    print(md.terms)
+    print(md.glyphs)
+    print(md.example)
+    print ("done!")
+    print ("----------------------------------------------------")
 
 def parseFiles(directory):
     files=os.listdir(directory)
