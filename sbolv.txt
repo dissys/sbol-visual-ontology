@@ -30,6 +30,27 @@
       <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/inhibition-specification.png"/>
     </owl:Restriction>
   </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#Interaction"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000169"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An arrow whose head is a bar, suggesting blocking:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Inhibition</rdfs:label>
   <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Repression of pTAL14 promoter by TAL14</prototypicalExample>
@@ -44,6 +65,27 @@
       <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/degradation-specification.png"/>
     </owl:Restriction>
   </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#Interaction"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000179"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Identical to the Process glyph, but with an empty set at the sink of the arrowhead:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Degradation</rdfs:label>
   <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cellular recycling of mRNA</prototypicalExample>
@@ -58,6 +100,27 @@
       <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/stimulation-specification.png"/>
     </owl:Restriction>
   </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#Interaction"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000170"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An arrow with an head that is empty or of a different color than the line:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Stimulation</rdfs:label>
   <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Activation of pTAL14 promoter by Gal4VP16 activator</prototypicalExample>
@@ -72,6 +135,27 @@
       <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/control-specification.png"/>
     </owl:Restriction>
   </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#Interaction"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000168"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An arrow with a diamond head:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Control</rdfs:label>
   <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Inversion of a sequence flanked by FRT sites by FLP recombinase</prototypicalExample>
@@ -86,6 +170,27 @@
       <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/process-specification.png"/>
     </owl:Restriction>
   </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#Interaction"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000375"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A square node:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Process</rdfs:label>
   <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Association of gRNA and Cas9 to form an active CRISPR complex.</prototypicalExample>
@@ -358,6 +463,27 @@ Examples of RECOMMENDED usage:
       <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/association-specification.png"/>
     </owl:Restriction>
   </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#Interaction"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000177"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A circular node:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Association</rdfs:label>
   <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Association of gRNA and Cas9 to form an active CRISPR complex.</prototypicalExample>
@@ -372,6 +498,27 @@ Examples of RECOMMENDED usage:
       <owl:someValuesFrom rdf:resource="https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/dissociation-specification.png"/>
     </owl:Restriction>
   </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbolstandard.org/v2#Interaction"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbolstandard.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000180"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An circular node inside another circle</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dissociation</rdfs:label>
   <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dissociation of an active CRISPR complex into gRNA and Cas9.</prototypicalExample>
