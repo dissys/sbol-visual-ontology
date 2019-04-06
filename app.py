@@ -18,10 +18,10 @@ def parseFile(filePath):
     #print("fileDir:" + filePath)
     dir=os.path.dirname(filePath)
     #if dir.endswith("aptamer"):      
-    if dir.endswith("stability-element"):      
-        md=mdContent(sbolVisualDir,filePath) 
-        md.parseMdFile() 
-        addOntologyTerms(md)
+    #if dir.endswith("stability-element"):      
+    md=mdContent(sbolVisualDir,filePath) 
+    md.parseMdFile() 
+    addOntologyTerms(md)
     '''
     print(md.title)
     print(md.terms)

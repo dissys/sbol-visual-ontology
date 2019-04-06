@@ -139,7 +139,7 @@ def createImageConstraints(sbolVisualTerm, allOntologyTerms):
             restrictionProperty=sbol2.type
             entity=sbol2.ComponentDefinition 
         elif hasNameSpace(ontologyTerms, sbo):  
-            sboUri=SBO_BASE_IRI + term.replace(":","_")
+            sboUri=SBO_BASE_IRI + term.name.replace(":","_")
             if sboTypeChecker.hasParent(sboUri, SBO_INTERACTION_PARENT_TERM): 
                 restrictionProperty=sbol2.type
                 entity=sbol2.Interaction
