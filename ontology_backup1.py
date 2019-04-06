@@ -9,7 +9,7 @@ from ontology import *
 
 import types
 
-print ("hello")
+print ("hello3")
 
 onto = get_ontology("http://sbolstandard.org/visual#")
 sbol = get_ontology("https://dissys.github.io/sbol-owl/sbol.rdf")

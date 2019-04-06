@@ -15,7 +15,7 @@ class mdContent (object):
     
     
     def parseMdFile(self):
-        print ("file:" + self.filePath)
+        print ("Parsing " + self.filePath)
         blockData=""
         with open(self.filePath) as f: 
             for line in f: 

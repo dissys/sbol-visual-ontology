@@ -12,7 +12,7 @@ import re
 from pip._vendor.webencodings import labels
 from rdf import TypeChecker
 
-print ("hello")
+print ("hello4")
 
 onto = get_ontology("http://sbolstandard.org/visual#")
 sbol = get_ontology("https://dissys.github.io/sbol-owl/sbol.rdf")

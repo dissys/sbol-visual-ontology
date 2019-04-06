@@ -1,18 +1,12 @@
-'''
-Created on 29 Mar 2019
 
-@author: gokselmisirli
-'''
 #https://buildmedia.readthedocs.org/media/pdf/owlready2/latest/owlready2.pdf
 from owlready2 import *
 from ontology import *
 
 import types
 import re
-from pip._vendor.webencodings import labels
 from rdf import TypeChecker
-
-print ("hello")
+from SbolVisualMD import SBOLVisualMD
 
 onto = get_ontology("http://sbolstandard.org/visual#")
 sbol = get_ontology("https://dissys.github.io/sbol-owl/sbol.rdf")
@@ -24,12 +18,9 @@ sbo = get_ontology("http://identifiers.org/sbo/")
 
 img = get_ontology("https://github.com/SynBioDex/SBOL-visual/blob/master/Glyphs/")
 
-
 onto.imported_ontologies.append(sbol)
-GLYPH_START="!["
 
 SBO_BASE_IRI="http://biomodels.net/SBO/"
-
 SBO_INTERACTION_PARENT_TERM=SBO_BASE_IRI + "SBO_0000231"
 sboTypeChecker=TypeChecker("sbo.owl")
         
@@ -42,16 +33,10 @@ class Interaction (Thing):
     
 class ImageFile (Thing):
     namespace=img 
- 
     
 class SO_0000110 (Thing):
     namespace=so  
 
-'''      
-class SO_0000167 (Thing):
-    namespace=so
-'''
-    
 class BioPAXPhysicalEntity(Thing):
     namespace=biopax
 
@@ -64,9 +49,6 @@ class type(ObjectProperty):
 class role(ObjectProperty):
     namespace=sbol2
 
-
-
- 
 class Glyph(Thing):
     namespace=onto
 
@@ -79,6 +61,11 @@ class hasGlyph(ObjectProperty):
    # range: [uri]
     namespace=onto
     
+class defaultGlyph(DataProperty):
+    domain:Glyph
+    range: [str]
+    namespace=onto    
+    
 class prototypicalExample(AnnotationProperty):
     domain:Glyph
     range: [str]
@@ -88,47 +75,209 @@ class notes(AnnotationProperty):
     domain:Glyph
     range: [str]
     namespace=onto    
+
+def createOntologyClass(termName, baseClass, ns):
+    sbolVisualTerm = types.new_class(termName, (baseClass,))
+    sbolVisualTerm.namespace=ns
+    sbolVisualTerm.label=termName 
+    return sbolVisualTerm
+
+def addImage(ontologyClass,image):
+    #imgClass = createOntologyClass(image, img.ImageFile, img) 
+    #ontologyClass.hasGlyph=imgClass
+    ontologyClass.defaultGlyph=image
+        
+def createVisualTerm(sbolVisualMD,termName):
+    sbolVisualTerm = createOntologyClass(termName, onto.Glyph, onto)
+    sbolVisualTerm.comment=sbolVisualMD.getComment()  
+    sbolVisualTerm.prototypicalExample=sbolVisualMD.getExample()
+    sbolVisualTerm.notes=sbolVisualMD.getNotes()
+    return sbolVisualTerm
+
+def getOntologyTermsFromLabels(glyphTypes):
+    allOntologyTerms=[]
+    for terms in glyphTypes:
+        ontologyTerms=[]
+        for term in terms :
+            if term.startswith("SO"):
+                ontologyTerms.append(createOntologyClass(term, so.SO_0000110, so))    
+            elif term.startswith(biopax.base_iri):
+                term=term.replace(biopax.base_iri,"").replace("#","")
+                ontologyTerms.append(createOntologyClass(term, biopax.BioPAXPhysicalEntity, biopax))
+                
+            elif term.startswith("SBO"):
+                #sboUri=SBO_BASE_IRI + term.replace(":","_")
+                #if sboTypeChecker.hasParent(sboUri, SBO_INTERACTION_PARENT_TERM): 
+                ontologyTerms.append(createOntologyClass(term, sbo.SBO_0000000, sbo))
+                #else:     
+                #    print ("SBO:Not_Interaction----------------")
+            else:
+                print ("Not categorised")
+            
+        allOntologyTerms.append(ontologyTerms)
+    return allOntologyTerms
+        
+
+def hasNameSpace(ontologyTerms, ns):
+    for term in ontologyTerms :
+        if term.namespace==ns:
+            return True
+        return False
     
-    
+def createImageConstraints(sbolVisualTerm, allOntologyTerms):
+    ontologyTerms=[]
+    for terms in allOntologyTerms:
+        for term in terms :
+            ontologyTerms.append(term)        
+    if allOntologyTerms:
+        restrictionProperty=None
+        entity=None
+        if hasNameSpace(ontologyTerms, so):   
+            restrictionProperty=sbol2.role
+            entity=sbol2.ComponentDefinition   
+        elif hasNameSpace(ontologyTerms, biopax):  
+            restrictionProperty=sbol2.type
+            entity=sbol2.ComponentDefinition 
+        elif hasNameSpace(ontologyTerms, sbo):  
+            sboUri=SBO_BASE_IRI + term.replace(":","_")
+            if sboTypeChecker.hasParent(sboUri, SBO_INTERACTION_PARENT_TERM): 
+                restrictionProperty=sbol2.type
+                entity=sbol2.Interaction
+            else:
+                print("---Only SBO terms from" + SBO_INTERACTION_PARENT_TERM + "are allowed")
+                 
+        if restrictionProperty:
+            if len(ontologyTerms)==1:
+                sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(entity & (restrictionProperty.some(ontologyTerms[0]))))] 
+            elif len(ontologyTerms)>1:  
+                sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(entity & (restrictionProperty.some(Or(ontologyTerms)))))] 
+        else:
+            print("---Could not find an allowed namespace: SO, BioPAX, SBO") 
 '''
-class InsulatorGlyph(Glyph):
-    equivalent_to = [
-        onto.Glyph & ( onto.isGlyphOf.some(sbol2.ComponentDefinition & (sbol2.role.some(so.SO_0000167))))
-            ] 
-
-InsulatorGlyph2 = types.new_class("InsulatorGlyph2", (onto.Glyph,))
-InsulatorGlyph2.namespace=onto
-   
-InsulatorGlyph2.equivalent_to = [
-        onto.Glyph & ( onto.isGlyphOf.some(sbol2.ComponentDefinition & (sbol2.role.some(so.SO_0000167))))
-            ] 
+    if allOntologyTerms:
+        if allOntologyTerms[0][0].namespace==so:    
+            if len(ontologyTerms)==1:
+                sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.role.some(ontologyTerms[0]))))] 
+            elif len(ontologyTerms)>1:  
+                    sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.role.some(Or(ontologyTerms)))))] 
+        elif allOntologyTerms[0][0].namespace==biopax:
+            if len(ontologyTerms)==1:
+                sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.type.some(ontologyTerms[0]))))] 
+            elif len(ontologyTerms)>1:  
+                sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.type.some(Or(ontologyTerms)))))] 
+        elif  allOntologyTerms[0][0].namespace==sbo:
+            if len(ontologyTerms)==1:
+                sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.Interaction & (sbol2.type.some(ontologyTerms[0]))))] 
+            elif len(ontologyTerms)>1:  
+                sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.Interaction & (sbol2.type.some(Or(ontologyTerms)))))] 
  '''
-
-def getComment(text):
-    index=text.find(GLYPH_START)
-    comment=text[0:index-1].rstrip()
-    return comment
-
-def getGlyps(text):
-    images=[]
-    items=re.findall('!\[(.*?)\]\((.*?)\)',text)
-    for item in items:
-        images.append(item[1])
-    return images  
-
-def getCommentAfterImage(text, image):
-    index=text.find(image)
-    index=index + len(image) + 1 #+1 for the ending paranthesis
-    comment=text[index+1:].rstrip()
-    comment=getComment(comment)
-    return comment.lstrip().rstrip()
-    
+                       
 def addOntologyTerms(mdContent):
+    sbolVisualMD=SBOLVisualMD(mdContent)
+    termName=sbolVisualMD.getGlyphLabel() 
+    sbolVisualTerm=createVisualTerm(sbolVisualMD,termName)
+     
+    images=sbolVisualMD.getGlyphs()
+    
+    glyphTypes=sbolVisualMD.getGlyphTypes()
+    
+    allOntologyTerms=getOntologyTermsFromLabels(glyphTypes)
+    
+    createImageConstraints(sbolVisualTerm, allOntologyTerms)
+    
+    if len(images)>0:
+        addImage(sbolVisualTerm, images[0])
+        
+    if len(glyphTypes)==1 and len(images)==2:
+        addImage(sbolVisualTerm, images[0])
+        alternateTermName=termName + "Alternative"   
+        sbolVisualAlternateTerm = createOntologyClass(alternateTermName, sbolVisualTerm, onto)   
+        sbolVisualAlternateTerm.comment=sbolVisualMD.getCommentAfterImage(images[0])  
+        addImage(sbolVisualAlternateTerm, images[1])
+    elif len(images)==1:
+        pass
+    else:
+        print("---Number of glyph types:" + str(len(glyphTypes)) + " , Number of images:" + str(len(images)))  
+        blocks= sbolVisualMD.getGlyphBlocks()
+        for block in blocks:
+            print("---Block")
+            for image in block:
+                print ("------" + image)
+                 
+
+'''        
+def addOntologyTerms(mdContent):
+    sbolVisualMD=SBOLVisualMD(mdContent)
+    termName=sbolVisualMD.getGlyphLabel() 
+    sbolVisualTerm=createVisualTerm(sbolVisualMD,termName)
+     
+    index=0
+    glyphTypes=sbolVisualMD.getGlyphTypes()
+    for terms in glyphTypes:
+        ontologyTerms=[]
+        index=index +1
+        if index==1:
+            glyphType=""
+            for term in terms :
+                glyphType="cdByRole"
+                print ("Regex label:" + term)
+                if term.startswith("SO"):
+                    ontologyTerms.append(createOntologyClass(term, so.SO_0000110, so))
+                    glyphType="cdByRole"     
+                elif term.startswith(biopax.base_iri):
+                    term=term.replace(biopax.base_iri,"").replace("#","")
+                    ontologyTerms.append(createOntologyClass(term, biopax.BioPAXPhysicalEntity, biopax))
+                    glyphType="cdByType"
+                    
+                elif term.startswith("SBO"):
+                    sboUri=SBO_BASE_IRI + term.replace(":","_")
+                    if sboTypeChecker.hasParent(sboUri, SBO_INTERACTION_PARENT_TERM): 
+                        ontologyTerms.append(createOntologyClass(term, sbo.SBO_0000000, sbo))
+                        glyphType="interactionByType"
+                        print ("SBO:Interaction----------------")
+                    else:     
+                        print ("SBO:Not_Interaction----------------")
+                else:
+                    print ("Not categorised")
+             
+                            
+            if glyphType=="cdByRole":
+                if len(terms)==1:
+                    sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.role.some(ontologyTerms[0]))))] 
+                elif len(terms)>1:  
+                        sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.role.some(Or(ontologyTerms)))))] 
+            elif glyphType=="cdByType":
+                if len(terms)==1:
+                    sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.type.some(ontologyTerms[0]))))] 
+                elif len(terms)>1:  
+                    sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.type.some(Or(ontologyTerms)))))] 
+            elif glyphType=="interactionByType":
+                if len(terms)==1:
+                    sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.Interaction & (sbol2.type.some(ontologyTerms[0]))))] 
+                elif len(terms)>1:  
+                    sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.Interaction & (sbol2.type.some(Or(ontologyTerms)))))] 
+             
+              
+    images=sbolVisualMD.getGlyps()
+        
+    if len(glyphTypes)==1 and len(images)==1:
+        addImage(sbolVisualTerm, images[0])
+    elif len(glyphTypes)==1 and len(images)==2:
+        addImage(sbolVisualTerm, images[0])
+        alternateTermName=termName + "Alternative"   
+        sbolVisualAlternateTerm = createOntologyClass(alternateTermName, sbolVisualTerm, onto)   
+        sbolVisualAlternateTerm.comment=sbolVisualMD.getCommentAfterImage(images[0])  
+        addImage(sbolVisualAlternateTerm, images[1])
+ '''      
+                      
+'''       
+def addOntologyTerms2(mdContent):
     termName=mdContent.title.replace(" ","").replace("/","") + "Glyph"   
     sbolVisualTerm = types.new_class(termName, (onto.Glyph,))
     sbolVisualTerm.namespace=onto
     sbolVisualTerm.label=mdContent.title
     lineIndex=1
+    #allTerms=
     glyphTypesTemp=mdContent.terms.rstrip().split("\n");
     glyphTypes=[]
     
@@ -177,26 +326,27 @@ def addOntologyTerms(mdContent):
                             print ("SBO:Interaction----------------")
                         else:     
                             print ("SBO:Not_Interaction----------------")
+                    else:
+                        print ("Not categorised")
                             
                     
                 if glyphType=="cdByRole":
                     if len(terms)==1:
-                        sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.some(sbol2.ComponentDefinition & (sbol2.role.some(terms[0]))))] 
+                        sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.role.some(terms[0]))))] 
                     elif len(terms)>1:  
                             sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.role.some(Or(terms)))))] 
                 elif glyphType=="cdByType":
                     if len(terms)==1:
-                        sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.some(sbol2.ComponentDefinition & (sbol2.type.some(terms[0]))))] 
+                        sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.type.some(terms[0]))))] 
                     elif len(terms)>1:  
                         sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.type.some(Or(terms)))))] 
                 elif glyphType=="interactionByType":
                     if len(terms)==1:
-                        sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.some(sbol2.Interaction & (sbol2.type.some(terms[0]))))] 
+                        sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.Interaction & (sbol2.type.some(terms[0]))))] 
                     elif len(terms)>1:  
                         sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.Interaction & (sbol2.type.some(Or(terms)))))] 
                      
-                       
-                
+                          
                 
                 sbolVisualTerm.comment=getComment(mdContent.glyphs)   
                 images=getGlyps(mdContent.glyphs)
@@ -220,102 +370,9 @@ def addOntologyTerms(mdContent):
                     
                 sbolVisualTerm.prototypicalExample=mdContent.example.strip()
                 sbolVisualTerm.notes=mdContent.notes.strip()
-                    
-                    
-                
-                
-                
-                 
-                    
-            '''    
-            term=line.split(" ")[0]
-            term=term[0:-1]
-            term=term.replace(":","_")
-            print ("Term:" + term)       
-            '''
-                    
-        '''
-            if len(terms)==1:
-                sbolVisualTerm.equivalent_to = [
-                onto.Glyph & ( onto.isGlyphOf.some(sbol2.ComponentDefinition & (sbol2.role.some(terms[0]))))
-                    ] 
-            elif len(terms)>1:  
-                sbolVisualTerm.equivalent_to = [
-                onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.role.some(Or(terms)))))]  
-        '''
-    
-    #sbolVisualTerm.comment=   
-         
-        '''soClass = types.new_class(term, (so.SO_0000110,))
-        soClass.namespace=so
-        sbolVisualTerm.equivalent_to = [
-        onto.Glyph & ( onto.isGlyphOf.some(sbol2.ComponentDefinition & (sbol2.role.some(soClass))))
-            ] 
-            '''
-        '''
-        soClass1 = types.new_class(term, (so.SO_0000110,))
-        soClass1.namespace=so
-        soClass2 = types.new_class(term + "_gm", (so.SO_0000110,))
-        soClass2.namespace=so
-        
-        sbolVisualTerm.equivalent_to = [
-        onto.Glyph & ( onto.isGlyphOf.some(sbol2.ComponentDefinition & (sbol2.role.some(soClass1 | soClass2))))
-            ] 
-            '''
-        '''
-        soClass1 = types.new_class(term, (so.SO_0000110,))
-        soClass1.namespace=so
-        soClass2 = types.new_class(term + "_gm2", (so.SO_0000110,))
-        soClass2.namespace=so
-        soClass3 = types.new_class(term + "_gm3", (so.SO_0000110,))
-        soClass3.namespace=so
-        
- 
-        sbolVisualTerm.equivalent_to = [
-        onto.Glyph & ( onto.isGlyphOf.some(sbol2.ComponentDefinition & (sbol2.role.some(soClass1 | soClass2 | soClass3))))
-            ] 
-            '''
-        '''
-        soClass1 = types.new_class(term, (so.SO_0000110,))
-        soClass1.namespace=so
-        soClass2 = types.new_class(term + "_gm", (so.SO_0000110,))
-        soClass2.namespace=so
-        
-        sbolVisualTerm.equivalent_to = [
-        onto.Glyph & ( onto.isGlyphOf.only(sbol2.ComponentDefinition & (sbol2.role.some(Or([soClass1,soClass2])))))]
-    '''
+ '''                   
+                     
 
 def saveOntology():
     onto.save(file = "sbolv.txt", format = "rdfxml")
    
-        
-
-
-'''
-with onto:
-    class Drug(Thing):
-        pass
-    class Ingredient(Thing):
-       pass
-    class has_for_ingredient(ObjectProperty):
-       domain    = [Drug]
-       range     = [Ingredient]
-    class TestDrug(Drug):
-         equivalent_to = [Drug & has_for_ingredient.some (Ingredient)]
-         '''
-         
-'''        
-class Drug(Thing):
-    namespace=onto
-
-class Ingredient(Thing):
-    namespace=onto
-
-class has_for_ingredient(ObjectProperty):
-    namespace=onto
-    domain    = [onto.Drug]
-    range     = [onto.Ingredient]
-    
-class TestDrug(Drug):
-    equivalent_to = [onto.Drug & onto.has_for_ingredient.some (onto.Ingredient)]
-'''   
