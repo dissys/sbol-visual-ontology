@@ -315,8 +315,11 @@ def addOntologyTerms(mdContent):
             # The first one is the base term
             # The second glyph block includes recommended images. One image per row
             # The third glyph block includes the images for the alternatives. One image per row.
-                       
-    
+    #elif (numberOfGlyphBlocks==2):
+    #    if len(glyphBlocks[1])==1:
+    #        recommendedSubTerms=createRecommendedTerms(sbolVisualMD, sbolVisualTerm, glyphBlocks, 0, 1, glyphTypes)
+            
+            
     else:
         print("---Number of glyph types:" + str(len(glyphTypes)) + " , Number of images:" + str(len(images)))  
         blocks= sbolVisualMD.getGlyphBlocks()

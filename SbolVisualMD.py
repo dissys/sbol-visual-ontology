@@ -17,11 +17,11 @@ class SBOLVisualMD (object):
         return termName
     
     def getGlyphTypes(self):
-        glyphTypesTemp=self._mdContent.terms.rstrip().split("\n");
+        glyphTypesTemp=self._mdContent.terms.rstrip().split("\n")
         glyphTypes=[]
         
         for glyphType in glyphTypesTemp:
-            if glyphType:
+            if glyphType.strip():
                 glyphTypes.append(glyphType)
         allTerms=[]         
         for line in glyphTypes:
@@ -38,7 +38,7 @@ class SBOLVisualMD (object):
                     items=[]
                     allTerms.append(items)
                     print ("---No ontology term specified!")   
-        return allTerms          
+        return allTerms         
      
     def getCommentFromText(self,text):
         index=text.find(self.GLYPH_START)

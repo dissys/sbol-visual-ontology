@@ -15,11 +15,11 @@ sbolVisualDir= "../SBOL-visual/Glyphs"
 def parseFile(filePath):
     #print("fileDir:" + filePath)
     dir=os.path.dirname(filePath)
-    if dir.endswith("location"):      
+    #if dir.endswith("stop-site"):      
         #if dir.endswith("stability-element"):      
-        md=mdContent(sbolVisualDir,filePath) 
-        md.parseMdFile() 
-        addOntologyTerms(md)
+    md=mdContent(sbolVisualDir,filePath) 
+    md.parseMdFile() 
+    addOntologyTerms(md)
     '''
     print(md.title)
     print(md.terms)
