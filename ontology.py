@@ -211,7 +211,56 @@ def createSubTerm(subTermName, baseTerm, comment, image):
     sbolVisualAlternateTerm.comment=comment
     addImage(sbolVisualAlternateTerm, image)  
     return sbolVisualAlternateTerm
-                                   
+         
+def getStringBetweenImages(sbolVisualMD, image1,image2):
+    searchString1= sbolVisualMD.GLYPH_TEMPLATE.format(image1)
+    searchString2= sbolVisualMD.GLYPH_TEMPLATE.format(image2)
+    text=sbolVisualMD.getGlyphText()
+    subString=getSubString(text,searchString1,searchString2)
+    return subString
+
+def getStringBetweenGlyphBlocks(sbolVisualMD, glyphBlocks, blockIndex1, blockIndex2):
+    
+    lenBlockImages=len(glyphBlocks[blockIndex1])
+    comment=getStringBetweenImages(sbolVisualMD, glyphBlocks[blockIndex1][lenBlockImages-1], glyphBlocks[blockIndex2][0])
+    return comment
+    
+def createRecommendedTerms(sbolVisualMD, baseTerm, glyphBlocks, blockIndex1, blockIndex2,glyphTypes):
+    recommendedSubTerms=[]
+    commentRecommended=getStringBetweenGlyphBlocks(sbolVisualMD, glyphBlocks, blockIndex1, blockIndex2)  
+    subTypeList=getSubTypes(commentRecommended)
+    index=0
+    for subType in subTypeList:
+        recommendedName=subType + baseTerm.label[0]
+        recommendedSubTerm=createSubTerm(recommendedName, baseTerm, commentRecommended, glyphBlocks[1][index])
+        recommendedOntologyTerms=getOntologyTermsFromLabelsForEachRow(glyphTypes[index])
+        createImageConstraints(recommendedSubTerm, [recommendedOntologyTerms])
+        index=index+1
+        recommendedSubTerms.append(recommendedSubTerm)          
+    return recommendedSubTerms 
+
+def getSubTypes(text):
+    subTypeList=[]
+    subTypes=getSubString(text, "in order:", "):")
+    if subTypes:
+        subTypeList=subTypes.split(",") 
+    subTypeList = [x.replace(' ', '') for x in subTypeList]       
+    return subTypeList
+
+def createAlternativeTerms(sbolVisualMD, glyphBlocks, blockIndex1, blockIndex2,recommendedSubTerms):
+    commentAlternative=getStringBetweenGlyphBlocks(sbolVisualMD, glyphBlocks, blockIndex1, blockIndex2)  
+    alternativeTerms=[]
+    index=0
+    for recommendedSubTerm in recommendedSubTerms:
+        subTermName=recommendedSubTerm.label[0] + "Alternative"
+        subTerm=createSubTerm(subTermName, recommendedSubTerms[index], commentAlternative, glyphBlocks[2][index])
+        subTerm.isAlternativeOf=recommendedSubTerm
+        alternativeTerms.append(subTerm)
+        #ontologyTermsForSubTerm=getOntologyTermsFromLabelsForEachRow(glyphTypes[index])
+        #createImageConstraints(recommendedSubTerm, [recommendedOntologyTerms])
+        index=index+1
+    return alternativeTerms
+                                                            
 def addOntologyTerms(mdContent):
     sbolVisualMD=SBOLVisualMD(mdContent)
     termName=sbolVisualMD.getGlyphLabel() 
@@ -225,6 +274,9 @@ def addOntologyTerms(mdContent):
     
     createImageConstraints(sbolVisualTerm, allOntologyTerms)
     
+    glyphBlocks=sbolVisualMD.getGlyphBlocks()
+    numberOfGlyphBlocks=len(glyphBlocks)
+        
     if len(images)==1:
         addImage(sbolVisualTerm, images[0])
     elif len(glyphTypes)==1 and len(images)==2:
@@ -236,17 +288,13 @@ def addOntologyTerms(mdContent):
     elif len(images)==(len(glyphTypes)+1):
         #There are n glyph types (row with ontology terms.)
         # The first one is the base term
-        # The second glyph block includes recommended images. One image per row
-       
-        glyphBlocks=sbolVisualMD.getGlyphBlocks()
-        numberOfGlyphBlocks=len(glyphBlocks)
+        # The second glyph block includes recommended images. One image per row 
         if (numberOfGlyphBlocks==2):
             if len(glyphBlocks[0])==1 and len(glyphBlocks[1])==len(glyphTypes):
                 addImage(sbolVisualTerm, images[0])
-                searchString1= sbolVisualMD.GLYPH_TEMPLATE.format(glyphBlocks[0][0])
-                searchString2= sbolVisualMD.GLYPH_TEMPLATE.format(glyphBlocks[1][0])
-                text=sbolVisualMD.getGlyphText()
-                commentRecommended=getSubString(text,searchString1,searchString2)
+                createRecommendedTerms(sbolVisualMD, sbolVisualTerm, glyphBlocks, 0, 1, glyphTypes)
+                '''                
+                commentRecommended=getStringBetweenImages(sbolVisualMD, glyphBlocks[0][0], glyphBlocks[1][0])
                 strSubTypes=getSubString(commentRecommended, "in order:", "):")
                 if strSubTypes:
                     subTypeList=strSubTypes.split(",")
@@ -257,13 +305,16 @@ def addOntologyTerms(mdContent):
                         recommendedOntologyTerms=getOntologyTermsFromLabelsForEachRow(glyphTypes[index])
                         createImageConstraints(recommendedSubTerm, [recommendedOntologyTerms])
                         index=index+1
-        if (numberOfGlyphBlocks==3):
-            if len(glyphBlocks[0])==1 and len(glyphBlocks[1])==len(glyphTypes) and len(glyphBlocks[2])==len(glyphTypes):
-                pass
-                #There are n glyph types (row with ontology terms.)
-                # The first one is the base term
-                # The second glyph block includes recommended images. One image per row
-                # The third glyph block includes the images for the alternatives. One image per row.
+ '''                       
+    elif (numberOfGlyphBlocks==3):
+        if len(glyphBlocks[0])==1 and len(glyphBlocks[1])==len(glyphTypes) and len(glyphBlocks[2])==len(glyphTypes):
+            addImage(sbolVisualTerm, images[0])
+            recommendedSubTerms=createRecommendedTerms(sbolVisualMD, sbolVisualTerm, glyphBlocks, 0, 1, glyphTypes)
+            createAlternativeTerms(sbolVisualMD, glyphBlocks, 1, 2, recommendedSubTerms)      
+            #There are n glyph types (row with ontology terms.)
+            # The first one is the base term
+            # The second glyph block includes recommended images. One image per row
+            # The third glyph block includes the images for the alternatives. One image per row.
                        
     
     else:
