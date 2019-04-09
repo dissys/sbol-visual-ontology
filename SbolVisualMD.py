@@ -45,6 +45,9 @@ class SBOLVisualMD (object):
         comment=text[0:index-1].rstrip()
         return comment 
     
+    def getGlyphText(self):
+        return self._mdContent.glyphs.strip()
+      
     def getComment(self):
         text=self._mdContent.glyphs
         return self.getCommentFromText(text)  
@@ -61,6 +64,7 @@ class SBOLVisualMD (object):
     
     def removeLineBreaks(self,text):
         return text.replace("\n","").replace("\r","")
+    
         
     def getGlyphBlocks(self):
         blocks=[]

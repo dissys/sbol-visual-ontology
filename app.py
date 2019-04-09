@@ -3,11 +3,9 @@ Created on 29 Mar 2019
 
 @author: gokselmisirli
 '''
-from owlready2 import *
 import types
 from mdFile import  *
 from ontology import  *
-
 
 import os
 

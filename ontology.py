@@ -2,7 +2,6 @@
 #https://buildmedia.readthedocs.org/media/pdf/owlready2/latest/owlready2.pdf
 from owlready2 import *
 from ontology import *
-
 import types
 import re
 from rdf import TypeChecker
@@ -65,6 +64,12 @@ class defaultGlyph(DataProperty):
     domain:Glyph
     range: [str]
     namespace=onto    
+     
+class isAlternativeOf(ObjectProperty):
+    domain:Glyph
+    range: Glyph
+    namespace=onto    
+    
     
 class prototypicalExample(AnnotationProperty):
     domain:Glyph
@@ -97,7 +102,8 @@ def createVisualTerm(sbolVisualMD,termName):
 def getOntologyTermsFromLabels(glyphTypes):
     allOntologyTerms=[]
     for terms in glyphTypes:
-        ontologyTerms=[]
+        ontologyTerms=getOntologyTermsFromLabelsForEachRow(terms)
+        '''
         for term in terms :
             if term.startswith("SO"):
                 ontologyTerms.append(createOntologyClass(term, so.SO_0000110, so))    
@@ -113,10 +119,31 @@ def getOntologyTermsFromLabels(glyphTypes):
                 #    print ("SBO:Not_Interaction----------------")
             else:
                 print ("Not categorised")
+        '''
             
         allOntologyTerms.append(ontologyTerms)
     return allOntologyTerms
+
+def getOntologyTermsFromLabelsForEachRow(terms):
+    ontologyTerms=[]
+    for term in terms :
+        if term.startswith("SO"):
+            ontologyTerms.append(createOntologyClass(term, so.SO_0000110, so))    
+        elif term.startswith(biopax.base_iri):
+            term=term.replace(biopax.base_iri,"").replace("#","")
+            ontologyTerms.append(createOntologyClass(term, biopax.BioPAXPhysicalEntity, biopax))
+            
+        elif term.startswith("SBO"):
+            #sboUri=SBO_BASE_IRI + term.replace(":","_")
+            #if sboTypeChecker.hasParent(sboUri, SBO_INTERACTION_PARENT_TERM): 
+            ontologyTerms.append(createOntologyClass(term, sbo.SBO_0000000, sbo))
+            #else:     
+            #    print ("SBO:Not_Interaction----------------")
+        else:
+            print ("Not categorised")
         
+    ontologyTerms
+    return ontologyTerms
 
 def hasNameSpace(ontologyTerms, ns):
     for term in ontologyTerms :
@@ -171,7 +198,20 @@ def createImageConstraints(sbolVisualTerm, allOntologyTerms):
             elif len(ontologyTerms)>1:  
                 sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.only(sbol2.Interaction & (sbol2.type.some(Or(ontologyTerms)))))] 
  '''
-                       
+
+def getSubString(text, substring1, substring2):
+    index1=text.find(substring1)
+    index1=index1 + len(substring1)
+    index2=text.find(substring2)
+    commentRecommended=text[index1:index2]
+    return commentRecommended.strip()
+
+def createSubTerm(subTermName, baseTerm, comment, image):
+    sbolVisualAlternateTerm = createOntologyClass(subTermName, baseTerm, onto)   
+    sbolVisualAlternateTerm.comment=comment
+    addImage(sbolVisualAlternateTerm, image)  
+    return sbolVisualAlternateTerm
+                                   
 def addOntologyTerms(mdContent):
     sbolVisualMD=SBOLVisualMD(mdContent)
     termName=sbolVisualMD.getGlyphLabel() 
@@ -185,17 +225,47 @@ def addOntologyTerms(mdContent):
     
     createImageConstraints(sbolVisualTerm, allOntologyTerms)
     
-    if len(images)>0:
+    if len(images)==1:
         addImage(sbolVisualTerm, images[0])
-        
-    if len(glyphTypes)==1 and len(images)==2:
+    elif len(glyphTypes)==1 and len(images)==2:
         addImage(sbolVisualTerm, images[0])
-        alternateTermName=termName + "Alternative"   
-        sbolVisualAlternateTerm = createOntologyClass(alternateTermName, sbolVisualTerm, onto)   
-        sbolVisualAlternateTerm.comment=sbolVisualMD.getCommentAfterImage(images[0])  
-        addImage(sbolVisualAlternateTerm, images[1])
-    elif len(images)==1:
-        pass
+        alternateTermName=termName + "Alternative" 
+        alternativeTerm=createSubTerm(alternateTermName, sbolVisualTerm, sbolVisualMD.getCommentAfterImage(images[0]), images[1])  
+        #createImageConstraints(alternativeTerm, allOntologyTerms)
+        alternativeTerm.isAlternativeOf=sbolVisualTerm
+    elif len(images)==(len(glyphTypes)+1):
+        #There are n glyph types (row with ontology terms.)
+        # The first one is the base term
+        # The second glyph block includes recommended images. One image per row
+       
+        glyphBlocks=sbolVisualMD.getGlyphBlocks()
+        numberOfGlyphBlocks=len(glyphBlocks)
+        if (numberOfGlyphBlocks==2):
+            if len(glyphBlocks[0])==1 and len(glyphBlocks[1])==len(glyphTypes):
+                addImage(sbolVisualTerm, images[0])
+                searchString1= sbolVisualMD.GLYPH_TEMPLATE.format(glyphBlocks[0][0])
+                searchString2= sbolVisualMD.GLYPH_TEMPLATE.format(glyphBlocks[1][0])
+                text=sbolVisualMD.getGlyphText()
+                commentRecommended=getSubString(text,searchString1,searchString2)
+                strSubTypes=getSubString(commentRecommended, "in order:", "):")
+                if strSubTypes:
+                    subTypeList=strSubTypes.split(",")
+                    index=0
+                    for subType in subTypeList:
+                        recommendedName=subType + termName
+                        recommendedSubTerm=createSubTerm(recommendedName, sbolVisualTerm, commentRecommended, glyphBlocks[1][index])
+                        recommendedOntologyTerms=getOntologyTermsFromLabelsForEachRow(glyphTypes[index])
+                        createImageConstraints(recommendedSubTerm, [recommendedOntologyTerms])
+                        index=index+1
+        if (numberOfGlyphBlocks==3):
+            if len(glyphBlocks[0])==1 and len(glyphBlocks[1])==len(glyphTypes) and len(glyphBlocks[2])==len(glyphTypes):
+                pass
+                #There are n glyph types (row with ontology terms.)
+                # The first one is the base term
+                # The second glyph block includes recommended images. One image per row
+                # The third glyph block includes the images for the alternatives. One image per row.
+                       
+    
     else:
         print("---Number of glyph types:" + str(len(glyphTypes)) + " , Number of images:" + str(len(images)))  
         blocks= sbolVisualMD.getGlyphBlocks()
@@ -204,7 +274,7 @@ def addOntologyTerms(mdContent):
             for image in block:
                 print ("------" + image)
                  
-
+    
 '''        
 def addOntologyTerms(mdContent):
     sbolVisualMD=SBOLVisualMD(mdContent)
