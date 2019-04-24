@@ -4,15 +4,12 @@ Created on 29 Mar 2019
 @author: gokselmisirli
 '''
 
-
-class mdContent (object):
+class MarkDown (object):
     PREFIX_TITLE="# "
     PREFIX_TERMS="## Associated"
     PREFIX_RECOMMENDED="## Recommended"
     PREFIX_EXAMPLE="## Prototypical"
     PREFIX_NOTES="## Notes"
-    
-    
     
     def parseMdFile(self):
         print ("Parsing " + self.filePath)
@@ -20,26 +17,25 @@ class mdContent (object):
         with open(self.filePath) as f: 
             for line in f: 
                 #print(line)
-                if line.startswith(mdContent.PREFIX_TITLE):
-                    self._title=line[len(mdContent.PREFIX_TITLE):].rstrip()
+                if line.startswith(MarkDown.PREFIX_TITLE):
+                    self._title=line[len(MarkDown.PREFIX_TITLE):].rstrip()
                     blockData=""
-                elif line.startswith(mdContent.PREFIX_TERMS):
+                elif line.startswith(MarkDown.PREFIX_TERMS):
                     blockData=""
-                elif line.startswith(mdContent.PREFIX_RECOMMENDED):
+                elif line.startswith(MarkDown.PREFIX_RECOMMENDED):
                     self._terms=blockData
                     blockData=""    
-                elif line.startswith(mdContent.PREFIX_EXAMPLE):
+                elif line.startswith(MarkDown.PREFIX_EXAMPLE):
                     self._glyphs=blockData
                     blockData=""
-                elif line.startswith(mdContent.PREFIX_NOTES):
+                elif line.startswith(MarkDown.PREFIX_NOTES):
                     self._example=blockData
                     blockData=""
                 else: 
                     blockData= blockData + line#.rstrip()                    
                 
                 self._notes=blockData    
-                
-                    
+                                  
     def __init__(self, mainFolder, filePath):
         self.mainFolder = mainFolder
         self.filePath = filePath
@@ -52,8 +48,7 @@ class mdContent (object):
         
     def next(self):
         line = self.fin.readline()
-        return line
-    
+        return line 
     
     def getTitle(self):
         return self._title
@@ -76,7 +71,4 @@ class mdContent (object):
     
     @property
     def notes(self):
-        return self._notes  
-    
-    
-    
+        return self._notes   

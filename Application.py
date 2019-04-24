@@ -4,31 +4,18 @@ Created on 29 Mar 2019
 @author: gokselmisirli
 '''
 import types
-from mdFile import  *
-from ontology import  *
+from MarkDown import  *
+from Ontology import  *
 
 import os
 
 sbolVisualDir= "../SBOL-visual/Glyphs"
 
-
 def parseFile(filePath):
-    #print("fileDir:" + filePath)
     dir=os.path.dirname(filePath)
-    #if dir.endswith("stop-site"):      
-        #if dir.endswith("stability-element"):      
-    md=mdContent(sbolVisualDir,filePath) 
+    md=MarkDown(sbolVisualDir,filePath) 
     md.parseMdFile() 
     addOntologyTerms(md)
-    '''
-    print(md.title)
-    print(md.terms)
-    print(md.glyphs)
-    print(md.example)
-    print ("done!")
-    print ("----------------------------------------------------")
-    '''
-    #saveOntology()
 
 def parseFiles(directory):
     files=os.listdir(directory)
@@ -43,5 +30,4 @@ def parseFiles(directory):
                        
 parseFiles(sbolVisualDir)
 saveOntology()
-
-
+print ("done!")

@@ -4,8 +4,7 @@ Created on 5 Apr 2019
 @author: gokselmisirli
 '''
 import re
-from ontology_backup2 import GLYPH_START
-class SBOLVisualMD (object):
+class SBOLVisualMarkDown (object):
     
     GLYPH_START="!["  
     GLYPH_TEMPLATE="![glyph specification]({})"  
@@ -37,7 +36,7 @@ class SBOLVisualMD (object):
                 else:
                     items=[]
                     allTerms.append(items)
-                    print ("---No ontology term specified!")   
+                    print ("---No Ontology term specified!")   
         return allTerms         
      
     def getCommentFromText(self,text):
@@ -51,9 +50,7 @@ class SBOLVisualMD (object):
     def getComment(self):
         text=self._mdContent.glyphs
         return self.getCommentFromText(text)  
-    
-          
-    
+     
     def getGlyphs(self):
         text=self._mdContent.glyphs
         images=[]
@@ -64,13 +61,11 @@ class SBOLVisualMD (object):
     
     def removeLineBreaks(self,text):
         return text.replace("\n","").replace("\r","")
-    
         
     def getGlyphBlocks(self):
         blocks=[]
         text=self.removeLineBreaks(self._mdContent.glyphs)
         images=self.getGlyphs()
-        
         if images:
             subBlock=[]
             i=0
@@ -97,13 +92,6 @@ class SBOLVisualMD (object):
             
         return blocks
                     
-                   
-            
-            
-            
-            
-            
-            
     def getExample(self):
         return self._mdContent.example.strip()
      

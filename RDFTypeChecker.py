@@ -6,8 +6,7 @@ Created on 4 Apr 2019
 import rdflib
 from rdflib.plugins.sparql import prepareQuery
 
-
-class TypeChecker (object):
+class RDFTypeChecker (object):
     def __init__(self, owlFile):
         self._g = g=rdflib.Graph()
         g.load(owlFile)
@@ -18,9 +17,7 @@ class TypeChecker (object):
         for row in self._g.query(queryString):
             if str(row.o)==parentUri:
                 return True
-        return False
-           
-
+        return False      
 '''
     q= prepareQuery(
         'select ?o where {sbo:SBO_0000177 rdfs:subClassOf* ?o .}',
