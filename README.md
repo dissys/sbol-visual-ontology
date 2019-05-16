@@ -6,11 +6,11 @@ The SBOL Visual Ontology (SBOL-VO) provides a set of controlled terms to describ
 * **Properties**. SBOL-VO includes object properties such as "hasGlyph" and "isAlternativeOf" to define the relationships between different terms.
 * **Annotations**. Terms are annotated using properties such as "defaultGlyph" and "recommended".
 
-### Browse
+## Browse
 [Browse the SBOL-VO terms via an HTML page.](https://dissys.github.io/sbol-visual-ontology/sbol-vo.html)
 
 The ontology can also be viewed after downloading and opening in an ontology editor, such as Protege.
 
-# Download
+## Download
 SBOL-VO is available as an RDF file. [Click here](http://dissys.github.io/sbol-visual-ontology/sbol-vo.rdf) to download the ontology. 
 
