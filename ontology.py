@@ -50,40 +50,48 @@ class role(ObjectProperty):
 
 class Glyph(Thing):
     namespace=onto
+    label ="Glyph"
 
 class isGlyphOf(ObjectProperty):
     range:Glyph
     namespace=onto
+    label ="isGlyphOf"
 
 class hasGlyph(ObjectProperty):
     domain:Glyph
    # range: [uri]
     namespace=onto
+    label ="hasGlyph"
     
 class defaultGlyph(AnnotationProperty):
     domain:Glyph
     range: [str]
-    namespace=onto  
+    namespace=onto 
+    label ="defaultGlyph" 
     
 class recommended(AnnotationProperty):
     domain:Glyph
     range: [bool]
-    namespace=onto    
+    namespace=onto  
+    label ="recommended"   
      
 class isAlternativeOf(ObjectProperty):
     domain:Glyph
     range: Glyph
     namespace=onto    
+    label ="isAlternativeOf"   
     
 class prototypicalExample(AnnotationProperty):
     domain:Glyph
     range: [str]
     namespace=onto
+    label ="prototypicalExample"
     
 class notes(AnnotationProperty):
     domain:Glyph
     range: [str]
-    namespace=onto    
+    namespace=onto  
+    label ="notes"  
 
 def createOntologyClass(termName, baseClass, ns):
     sbolVisualTerm = types.new_class(termName, (baseClass,))
@@ -281,7 +289,7 @@ def addOntologyTerms(mdContent):
                 print ("------" + image)
                                                       
 def saveOntology():
-    onto.save(file = "sbolv.txt", format = "rdfxml")
-    onto.save(file = "sbolv.rdf", format = "rdfxml")
+    onto.save(file = "sbol-vo.txt", format = "rdfxml")
+    onto.save(file = "sbol-vo.rdf", format = "rdfxml")
       
     # isGlyphOf some  (role some SO:0000167)

@@ -12,21 +12,36 @@
 
 <owl:Class rdf:about="#Glyph">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Glyph</rdfs:label>
 </owl:Class>
 
-<owl:ObjectProperty rdf:about="#isGlyphOf"/>
+<owl:ObjectProperty rdf:about="#isGlyphOf">
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">isGlyphOf</rdfs:label>
+</owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#hasGlyph"/>
+<owl:ObjectProperty rdf:about="#hasGlyph">
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasGlyph</rdfs:label>
+</owl:ObjectProperty>
 
-<owl:AnnotationProperty rdf:about="#defaultGlyph"/>
+<owl:AnnotationProperty rdf:about="#defaultGlyph">
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">defaultGlyph</rdfs:label>
+</owl:AnnotationProperty>
 
-<owl:AnnotationProperty rdf:about="#recommended"/>
+<owl:AnnotationProperty rdf:about="#recommended">
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">recommended</rdfs:label>
+</owl:AnnotationProperty>
 
-<owl:ObjectProperty rdf:about="#isAlternativeOf"/>
+<owl:ObjectProperty rdf:about="#isAlternativeOf">
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">isAlternativeOf</rdfs:label>
+</owl:ObjectProperty>
 
-<owl:AnnotationProperty rdf:about="#prototypicalExample"/>
+<owl:AnnotationProperty rdf:about="#prototypicalExample">
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">prototypicalExample</rdfs:label>
+</owl:AnnotationProperty>
 
-<owl:AnnotationProperty rdf:about="#notes"/>
+<owl:AnnotationProperty rdf:about="#notes">
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">notes</rdfs:label>
+</owl:AnnotationProperty>
 
 <owl:Class rdf:about="#InhibitionGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
