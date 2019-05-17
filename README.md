@@ -14,3 +14,5 @@ The ontology can also be viewed after downloading and opening in an ontology edi
 ## Download
 SBOL-VO is available as an RDF file. [Click here](http://dissys.github.io/sbol-visual-ontology/sbol-vo.rdf) to download the ontology. 
 
+## Development
+The Python code to generate the ontology is maintained by [Goksel Misirli](mailto:g.misirli@keele.ac.uk) and is available at the [sbol-visual-ontology](https://github.com/dissys/sbol-visual-ontology) GitHub repository.
