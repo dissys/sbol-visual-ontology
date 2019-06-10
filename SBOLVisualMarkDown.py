@@ -4,6 +4,7 @@ Created on 5 Apr 2019
 @author: gokselmisirli
 '''
 import re
+import os
 class SBOLVisualMarkDown (object):
     
     GLYPH_START="!["  
@@ -97,6 +98,14 @@ class SBOLVisualMarkDown (object):
      
     def getNotes(self):   
         return self._mdContent.notes.strip()
+    
+    def getDirectory(self):   
+        filePath=self._mdContent.filePath # ../SBOL-visual/Glyphs/Interactions/inhibition/README.md
+        dir = os.path.dirname(filePath) # ../SBOL-visual/Glyphs/Interactions/inhibition
+        index=dir.index(os.path.sep,len("../")) 
+        dir=dir[index+1:] #Glyphs/Interactions/inhibition
+        #dir="https://github.com/SynBioDex/SBOL-visual/blob/master/" + dir
+        return dir
 
     def getCommentAfterImage(self,image):
         text=self._mdContent.glyphs
