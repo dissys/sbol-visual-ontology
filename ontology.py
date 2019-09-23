@@ -22,6 +22,7 @@ sbol2ns = sbol2.get_namespace("http://sbols.org/v2")
 
 SBO_BASE_IRI="http://biomodels.net/SBO/"
 SBO_INTERACTION_PARENT_TERM=SBO_BASE_IRI + "SBO_0000231"
+SBO_MATERIAL_ENTITY_TERM = SBO_BASE_IRI + "SBO_0000240"
 sboTypeChecker=RDFTypeChecker("sbo.owl")
         
 class ComponentDefinition (Thing):
@@ -172,8 +173,12 @@ def createImageConstraints(sbolVisualTerm, allOntologyTerms):
             if sboTypeChecker.hasParent(sboUri, SBO_INTERACTION_PARENT_TERM): 
                 restrictionProperty=sbol2.type
                 entity=sbol2.Interaction
+            if sboTypeChecker.hasParent(sboUri, SBO_MATERIAL_ENTITY_TERM): 
+                restrictionProperty=sbol2.type
+                entity=sbol2.ComponentDefinition    
             else:
-                print("---Only SBO terms from" + SBO_INTERACTION_PARENT_TERM + "are allowed")
+                print("---Only SBO terms from" + SBO_INTERACTION_PARENT_TERM + " and " + SBO_MATERIAL_ENTITY_TERM + " are allowed!")
+                
                  
         if restrictionProperty:
             if len(ontologyTerms)==1:
@@ -185,10 +190,13 @@ def createImageConstraints(sbolVisualTerm, allOntologyTerms):
 
 def getSubString(text, substring1, substring2):
     index1=text.find(substring1)
-    index1=index1 + len(substring1)
-    index2=text.find(substring2)
-    commentRecommended=text[index1:index2]
-    return commentRecommended.strip()
+    result=""
+    if index1>-1:
+        index1=index1 + len(substring1)
+        index2=text.find(substring2)
+        commentRecommended=text[index1:index2]
+        result= commentRecommended.strip()
+    return result
 
 def createSubTerm(subTermName, baseTerm, comment, imageDirectory, image):
     sbolVisualAlternateTerm = createOntologyClass(subTermName, baseTerm, onto)   
@@ -208,36 +216,62 @@ def getStringBetweenGlyphBlocks(sbolVisualMD, glyphBlocks, blockIndex1, blockInd
     comment=getStringBetweenImages(sbolVisualMD, glyphBlocks[blockIndex1][lenBlockImages-1], glyphBlocks[blockIndex2][0])
     return comment
     
-def createRecommendedTerms(sbolVisualMD, baseTerm, glyphBlocks, blockIndex1, blockIndex2,glyphTypes,imageDirectory):
+def createRecommendedTerms(sbolVisualMD, baseTerm, glyphBlocks, blockIndex,glyphTypes,imageDirectory):
     recommendedSubTerms=[]
-    commentRecommended=getStringBetweenGlyphBlocks(sbolVisualMD, glyphBlocks, blockIndex1, blockIndex2)  
+    commentRecommended=""
+    if blockIndex==0: # If the recommended term is in the first block than use the same comment for both the generic and recommended terms.
+        commentRecommended=baseTerm.comment[0]
+    else:
+        commentRecommended=getStringBetweenGlyphBlocks(sbolVisualMD, glyphBlocks, blockIndex-1, blockIndex)  
     subTypeList=getSubTypes(commentRecommended)
     index=0
     for subType in subTypeList:
         recommendedName=subType + baseTerm.label[0]
-        recommendedSubTerm=createSubTerm(recommendedName, baseTerm, commentRecommended,imageDirectory, glyphBlocks[1][index])
+        recommendedSubTerm=createSubTerm(recommendedName, baseTerm, commentRecommended,imageDirectory, glyphBlocks[blockIndex][index])
         recommendedSubTerm.recommended=True
+        if len(glyphTypes)>1:
+            recommendedOntologyTerms=getOntologyTermsFromLabelsForEachRow(glyphTypes[index])
+            createImageConstraints(recommendedSubTerm, [recommendedOntologyTerms])
+            index=index+1
+        else:
+            test=""
+        recommendedSubTerms.append(recommendedSubTerm)   
+    
+    #If there is only one glyph type included, then there is no need to copy it to all recommended terms. These recommended terms 
+    # should inherit the type from the base term. i.e. "complex"
+    if len(glyphTypes)==1:
         recommendedOntologyTerms=getOntologyTermsFromLabelsForEachRow(glyphTypes[index])
-        createImageConstraints(recommendedSubTerm, [recommendedOntologyTerms])
-        index=index+1
-        recommendedSubTerms.append(recommendedSubTerm)          
+        createImageConstraints(baseTerm, [recommendedOntologyTerms])
+        
+    if  len(recommendedSubTerms)==0:
+        print("---" + "Could not create the recommended terms for " + baseTerm.label[0])      
     return recommendedSubTerms 
+
 
 def getSubTypes(text):
     subTypeList=[]
     subTypes=getSubString(text, "in order:", "):")
     if subTypes:
         subTypeList=subTypes.split(",") 
-    subTypeList = [x.replace(' ', '') for x in subTypeList]       
+        #subTypeList = [x.replace(' ', '') for x in subTypeList]       
+        subTypeList = [capitalise(x) for x in subTypeList]       
     return subTypeList
 
-def createAlternativeTerms(sbolVisualMD, glyphBlocks, blockIndex1, blockIndex2,recommendedSubTerms, glyphTypes, imageDirectory):
-    commentAlternative=getStringBetweenGlyphBlocks(sbolVisualMD, glyphBlocks, blockIndex1, blockIndex2)  
+def capitalise (text):
+    wordList = re.split(" |-",text)
+    wordList = [x.capitalize() for x in wordList]
+    text="".join(wordList)
+    text = text.replace(' ', '')
+    return text
+    
+
+def createAlternativeTerms(sbolVisualMD, glyphBlocks, blockIndex,recommendedSubTerms, glyphTypes, imageDirectory):
+    commentAlternative=getStringBetweenGlyphBlocks(sbolVisualMD, glyphBlocks, blockIndex-1, blockIndex)  
     alternativeTerms=[]
     index=0
     for recommendedSubTerm in recommendedSubTerms:
         subTermName=recommendedSubTerm.label[0] + "Alternative"
-        subTerm=createSubTerm(subTermName, recommendedSubTerms[index], commentAlternative, imageDirectory, glyphBlocks[2][index])
+        subTerm=createSubTerm(subTermName, recommendedSubTerms[index], commentAlternative, imageDirectory, glyphBlocks[blockIndex][index])
         subTerm.isAlternativeOf=recommendedSubTerm
         alternativeTerms.append(subTerm)
         #ontologyTermsForSubTerm=getOntologyTermsFromLabelsForEachRow(glyphTypes[index])
@@ -271,14 +305,30 @@ def addOntologyTerms(mdContent):
         alternativeTerm=createSubTerm(alternateTermName, sbolVisualTerm, sbolVisualMD.getCommentAfterImage(images[0]), imageDirectory, images[1])  
         #createImageConstraints(alternativeTerm, allOntologyTerms)
         alternativeTerm.isAlternativeOf=sbolVisualTerm
-    elif len(images)==(len(glyphTypes)+1):
+    elif (numberOfGlyphBlocks==2):
+        if len(images)==(len(glyphTypes)+1):
         #There are n glyph types (row with ontology terms.)
         # The first one is the base term
         # The second glyph block includes recommended images. One image per row 
-        if (numberOfGlyphBlocks==2):
             if len(glyphBlocks[0])==1 and len(glyphBlocks[1])==len(glyphTypes):
                 addImage(sbolVisualTerm, imageDirectory, images[0])
-                createRecommendedTerms(sbolVisualMD, sbolVisualTerm, glyphBlocks, 0, 1, glyphTypes, imageDirectory)                     
+                createRecommendedTerms(sbolVisualMD, sbolVisualTerm, glyphBlocks, 1, glyphTypes, imageDirectory)  
+        
+        elif (len(glyphTypes) * 2 == len(images)):
+        #The number of image types times 2 is equal to the number of images. For each type there are two images! E.g. Overhang
+        # There is no image for the base term
+            recommendedSubTerms=createRecommendedTerms(sbolVisualMD, sbolVisualTerm, glyphBlocks, 0, glyphTypes, imageDirectory)
+            createAlternativeTerms(sbolVisualMD, glyphBlocks, 1, recommendedSubTerms, glyphTypes, imageDirectory) 
+        
+        elif (len(glyphBlocks[1])==1):
+        #There are only two blocks and the there is only one image in the second block
+            recommendedSubTerms=createRecommendedTerms(sbolVisualMD, sbolVisualTerm, glyphBlocks, 0, glyphTypes, imageDirectory)
+            alternateTermName=termName + "Alternative" 
+            commentAlternative=getStringBetweenGlyphBlocks(sbolVisualMD, glyphBlocks, 0, 1)  
+            alternativeTerm=createSubTerm(alternateTermName, sbolVisualTerm, commentAlternative, imageDirectory, glyphBlocks[1][0]) 
+            for recommendedTerm in recommendedSubTerms:
+                alternativeTerm.is_a.append(recommendedTerm)
+                                   
     elif (numberOfGlyphBlocks==3):
         if len(glyphBlocks[0])==1 and len(glyphBlocks[1])==len(glyphTypes) and len(glyphBlocks[2])==len(glyphTypes):
             #There are n glyph types (row with ontology terms.)
@@ -286,8 +336,8 @@ def addOntologyTerms(mdContent):
             # The second glyph block includes recommended images. One image per row
             # The third glyph block includes the images for the alternatives. One image per row.
             addImage(sbolVisualTerm, imageDirectory, images[0])
-            recommendedSubTerms=createRecommendedTerms(sbolVisualMD, sbolVisualTerm, glyphBlocks, 0, 1, glyphTypes, imageDirectory)
-            createAlternativeTerms(sbolVisualMD, glyphBlocks, 1, 2, recommendedSubTerms, glyphTypes, imageDirectory)          
+            recommendedSubTerms=createRecommendedTerms(sbolVisualMD, sbolVisualTerm, glyphBlocks, 1, glyphTypes, imageDirectory)
+            createAlternativeTerms(sbolVisualMD, glyphBlocks, 2, recommendedSubTerms, glyphTypes, imageDirectory)          
     else:
         print("---Number of glyph types:" + str(len(glyphTypes)) + " , Number of images:" + str(len(images)))  
         blocks= sbolVisualMD.getGlyphBlocks()

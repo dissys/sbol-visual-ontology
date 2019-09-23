@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sbol="http://sbols.org/v2#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:prov="http://www.w3.org/ns/prov#"  xmlns:owl="http://www.w3.org/2002/07/owl#">
+
+<owl:Ontology rdf:about="http://sbolstandard.org/visualtest">
+  <owl:imports rdf:resource="https://dissys.github.io/sbol-owl/sbol.rdf"/>
+</owl:Ontology>
+
+<owl:Ontology rdf:about="http://sbolstandard.org/visualtest">
+  <owl:imports rdf:resource="https://dissys.github.io/sbol-visual-ontology/sbol-vo.rdf"/>
+</owl:Ontology>
+  <sbol:ComponentDefinition rdf:about="http://parts.igem.org/ptetR">
+    <sbol:persistentIdentity rdf:resource="http://parts.igem.org/ptetR"/>
+    <sbol:displayId>ptetR</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000167"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://parts.igem.org/luxR">
+    <sbol:persistentIdentity rdf:resource="http://parts.igem.org/luxR"/>
+    <sbol:displayId>luxR</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000316"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://parts.igem.org/B0030">
+    <sbol:persistentIdentity rdf:resource="http://parts.igem.org/B0030"/>
+    <sbol:displayId>B0030</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000139"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://parts.igem.org/gfp">
+    <sbol:persistentIdentity rdf:resource="http://parts.igem.org/gfp"/>
+    <sbol:displayId>gfp</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000316"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://parts.igem.org/BBa_F2620">
+    <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_F2620"/>
+    <sbol:displayId>BBa_F2620</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000280"/>
+    <sbol:component>
+      <sbol:Component rdf:about="http://parts.igem.org/BBa_F2620/luxR_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_F2620/luxR_comp"/>
+        <sbol:displayId>luxR_comp</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://parts.igem.org/luxR"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://parts.igem.org/BBa_F2620/B0034_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_F2620/B0034_comp"/>
+        <sbol:displayId>B0034_comp</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://parts.igem.org/B0034"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://parts.igem.org/BBa_F2620/pluxR_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_F2620/pluxR_comp"/>
+        <sbol:displayId>pluxR_comp</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://parts.igem.org/pluxR"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://parts.igem.org/BBa_F2620/ptetR_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_F2620/ptetR_comp"/>
+        <sbol:displayId>ptetR_comp</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://parts.igem.org/ptetR"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://parts.igem.org/BBa_F2620/B0015_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_F2620/B0015_comp"/>
+        <sbol:displayId>B0015_comp</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://parts.igem.org/B0015"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:sequenceConstraint>
+      <sbol:SequenceConstraint rdf:about="http://parts.igem.org/BBa_F2620/B0015_compprecedespluxR_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_F2620/B0015_compprecedespluxR_comp"/>
+        <sbol:displayId>B0015_compprecedespluxR_comp</sbol:displayId>
+        <sbol:restriction rdf:resource="http://sbols.org/v2#precedes"/>
+        <sbol:subject rdf:resource="http://parts.igem.org/BBa_F2620/B0015_comp"/>
+        <sbol:object rdf:resource="http://parts.igem.org/BBa_F2620/pluxR_comp"/>
+      </sbol:SequenceConstraint>
+    </sbol:sequenceConstraint>
+    <sbol:sequenceConstraint>
+      <sbol:SequenceConstraint rdf:about="http://parts.igem.org/BBa_F2620/B0034_compprecedesluxR_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_F2620/B0034_compprecedesluxR_comp"/>
+        <sbol:displayId>B0034_compprecedesluxR_comp</sbol:displayId>
+        <sbol:restriction rdf:resource="http://sbols.org/v2#precedes"/>
+        <sbol:subject rdf:resource="http://parts.igem.org/BBa_F2620/B0034_comp"/>
+        <sbol:object rdf:resource="http://parts.igem.org/BBa_F2620/luxR_comp"/>
+      </sbol:SequenceConstraint>
+    </sbol:sequenceConstraint>
+    <sbol:sequenceConstraint>
+      <sbol:SequenceConstraint rdf:about="http://parts.igem.org/BBa_F2620/luxR_compprecedesB0015_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_F2620/luxR_compprecedesB0015_comp"/>
+        <sbol:displayId>luxR_compprecedesB0015_comp</sbol:displayId>
+        <sbol:restriction rdf:resource="http://sbols.org/v2#precedes"/>
+        <sbol:subject rdf:resource="http://parts.igem.org/BBa_F2620/luxR_comp"/>
+        <sbol:object rdf:resource="http://parts.igem.org/BBa_F2620/B0015_comp"/>
+      </sbol:SequenceConstraint>
+    </sbol:sequenceConstraint>
+    <sbol:sequenceConstraint>
+      <sbol:SequenceConstraint rdf:about="http://parts.igem.org/BBa_F2620/ptetR_compprecedesB0034_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_F2620/ptetR_compprecedesB0034_comp"/>
+        <sbol:displayId>ptetR_compprecedesB0034_comp</sbol:displayId>
+        <sbol:restriction rdf:resource="http://sbols.org/v2#precedes"/>
+        <sbol:subject rdf:resource="http://parts.igem.org/BBa_F2620/ptetR_comp"/>
+        <sbol:object rdf:resource="http://parts.igem.org/BBa_F2620/B0034_comp"/>
+      </sbol:SequenceConstraint>
+    </sbol:sequenceConstraint>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://parts.igem.org/B0015">
+    <sbol:persistentIdentity rdf:resource="http://parts.igem.org/B0015"/>
+    <sbol:displayId>B0015</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000141"/>
+    <sbol:component>
+      <sbol:Component rdf:about="http://parts.igem.org/B0015/B0012_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/B0015/B0012_comp"/>
+        <sbol:displayId>B0012_comp</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://parts.igem.org/B0012"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://parts.igem.org/B0015/B0010_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/B0015/B0010_comp"/>
+        <sbol:displayId>B0010_comp</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://parts.igem.org/B0010"/>
+      </sbol:Component>
+    </sbol:component>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://parts.igem.org/B0010">
+    <sbol:persistentIdentity rdf:resource="http://parts.igem.org/B0010"/>
+    <sbol:displayId>B0010</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000141"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://parts.igem.org/B0012">
+    <sbol:persistentIdentity rdf:resource="http://parts.igem.org/B0012"/>
+    <sbol:displayId>B0012</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000141"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://parts.igem.org/pluxR">
+    <sbol:persistentIdentity rdf:resource="http://parts.igem.org/pluxR"/>
+    <sbol:displayId>pluxR</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000167"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://parts.igem.org/B0034">
+    <sbol:persistentIdentity rdf:resource="http://parts.igem.org/B0034"/>
+    <sbol:displayId>B0034</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000139"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://parts.igem.org/BBa_S03839">
+    <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_S03839"/>
+    <sbol:displayId>BBa_S03839</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000280"/>
+    <sbol:component>
+      <sbol:Component rdf:about="http://parts.igem.org/BBa_S03839/BBa_F2620_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_S03839/BBa_F2620_comp"/>
+        <sbol:displayId>BBa_F2620_comp</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://parts.igem.org/BBa_F2620"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://parts.igem.org/BBa_S03839/B0030_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_S03839/B0030_comp"/>
+        <sbol:displayId>B0030_comp</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://parts.igem.org/B0030"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://parts.igem.org/BBa_S03839/gfp_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_S03839/gfp_comp"/>
+        <sbol:displayId>gfp_comp</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://parts.igem.org/gfp"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:sequenceConstraint>
+      <sbol:SequenceConstraint rdf:about="http://parts.igem.org/BBa_S03839/B0030_compprecedesgfp_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_S03839/B0030_compprecedesgfp_comp"/>
+        <sbol:displayId>B0030_compprecedesgfp_comp</sbol:displayId>
+        <sbol:restriction rdf:resource="http://sbols.org/v2#precedes"/>
+        <sbol:subject rdf:resource="http://parts.igem.org/BBa_S03839/B0030_comp"/>
+        <sbol:object rdf:resource="http://parts.igem.org/BBa_S03839/gfp_comp"/>
+      </sbol:SequenceConstraint>
+    </sbol:sequenceConstraint>
+    <sbol:sequenceConstraint>
+      <sbol:SequenceConstraint rdf:about="http://parts.igem.org/BBa_S03839/BBa_F2620_compprecedesB0030_comp">
+        <sbol:persistentIdentity rdf:resource="http://parts.igem.org/BBa_S03839/BBa_F2620_compprecedesB0030_comp"/>
+        <sbol:displayId>BBa_F2620_compprecedesB0030_comp</sbol:displayId>
+        <sbol:restriction rdf:resource="http://sbols.org/v2#precedes"/>
+        <sbol:subject rdf:resource="http://parts.igem.org/BBa_S03839/BBa_F2620_comp"/>
+        <sbol:object rdf:resource="http://parts.igem.org/BBa_S03839/B0030_comp"/>
+      </sbol:SequenceConstraint>
+    </sbol:sequenceConstraint>
+  </sbol:ComponentDefinition>
+</rdf:RDF>
