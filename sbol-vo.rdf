@@ -1288,6 +1288,40 @@ and a composite with an Engineered Region of otherwise unspecified content:
 ![glyph specification](abbreviated-composite-example2.png)</notes>
 </owl:Class>
 
+<owl:Class rdf:about="#IntronGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbols.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000188"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An intron is designated by a boundaries interrupting CDS, each side having a two-triangle "torn out" edges, suggesting removal from an enclosing coding sequence:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">IntronGlyph</rdfs:label>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">intron-specification.png</defaultGlyph>
+  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/intron</glyphDirectory>
+  <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Example of a coding sequence with three domains: an N-tag (blue), C-tag (yellow), and internal region (red) interrupted by an intron that includes a gRNA non-coding RNA sequence (green):
+
+![example](intron-example.png)</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
+</owl:Class>
+
 <owl:Class rdf:about="#CDSGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
   <owl:equivalentClass>
@@ -1442,6 +1476,46 @@ Engineered Region is represented by a plain rectangle suggesting a blank slate t
   <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
   <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An "expression cassette" containing a ribosome entry site, coding sequence, and terminator.</prototypicalExample>
   <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#PolypeptideRegionGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbols.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0000839"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A polypeptide region inside a coding sequence is indicated by insertion of triangular boundaries inside of the CDS, parallel to the 3' side of the CDS.  This will produce chevron segments on the 3' side and a CDS shape on the 5' side:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PolypeptideRegionGlyph</rdfs:label>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">polypeptide-region-specification.png</defaultGlyph>
+  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/polypeptide-region</glyphDirectory>
+  <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">degradation tag on a protein coding sequence
+
+nuclear localization tag on a protein coding sequence
+
+coding sequence for the membrane-crossing region of a protein
+
+This glyph is intended to be used in composition or superposition with the glyph for the coding sequence of which the polypeptide regions are fragments: Example of a coding sequence with three designated domains, an N-tag (blue), C-tag (yellow), and internal region (red):
+
+![example of usage](polypeptide-region-example.png)</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left deliberately blank*</notes>
 </owl:Class>
 
 <owl:Class rdf:about="#BluntRestrictionSiteGlyph">
@@ -1691,13 +1765,13 @@ Transcription/Translation End Point is a "stem-top" glyph for describing small s
       </owl:intersectionOf>
     </owl:Class>
   </owl:equivalentClass>
-  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The macromolecule glyph is a diagonally offset union of a large and small circle, intended to invoke the complex shapes of proteins:</rdfs:comment>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The macromolecule glyph is a rounded rectangle, as used in SBGN:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MacromoleculeGlyph</rdfs:label>
   <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">macromolecule-specification.png</defaultGlyph>
   <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/macromolecule</glyphDirectory>
   <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
-  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">AraC</prototypicalExample>
-  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Note that this also covers BioPAX term Protein: http://www.biopax.org/release/biopax-level3.owl#Protein</notes>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">AraC protein, polymerized chitin</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
 </owl:Class>
 
 <owl:Class rdf:about="#MacromoleculeGlyphAlternative">
@@ -1708,9 +1782,9 @@ Transcription/Translation End Point is a "stem-top" glyph for describing small s
       <owl:someValuesFrom rdf:resource="#MacromoleculeGlyph"/>
     </owl:Restriction>
   </rdfs:subClassOf>
-  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An alternative is the SBGN macromolecule glyph, a rounded rectangle:</rdfs:comment>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A deprecated alternative is a diagonally offset union of a large and small circle, intended to invoke the complex shapes of protein. It is now deprecated for being too similar to a yeast cell "shmoo" symbol:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MacromoleculeGlyphAlternative</rdfs:label>
-  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">macromolecule-sbgn-specification.png</defaultGlyph>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">macromolecule-deprecated-specification.png</defaultGlyph>
   <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/macromolecule</glyphDirectory>
 </owl:Class>
 
@@ -1783,7 +1857,7 @@ Transcription/Translation End Point is a "stem-top" glyph for describing small s
       </owl:intersectionOf>
     </owl:Class>
   </owl:equivalentClass>
-  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules of comprising the complex.  For example, a protein bound to a small molecule, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules comprising the complex.  For example, a protein bound to a simple chemical, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ComplexGlyph</rdfs:label>
   <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Arabinose bound to AraC</prototypicalExample>
   <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alternate BioPAX definition: Complex: http://www.biopax.org/release/biopax-level3.owl#Complex</notes>
@@ -1791,27 +1865,27 @@ Transcription/Translation End Point is a "stem-top" glyph for describing small s
 
 <owl:Class rdf:about="#ProteinSmallMoleculeComplexGlyph">
   <rdfs:subClassOf rdf:resource="#ComplexGlyph"/>
-  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules of comprising the complex.  For example, a protein bound to a small molecule, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules comprising the complex.  For example, a protein bound to a simple chemical, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProteinSmallMoleculeComplexGlyph</rdfs:label>
-  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-pr-specification.png</defaultGlyph>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-ps-specification.png</defaultGlyph>
   <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/complex</glyphDirectory>
   <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
 </owl:Class>
 
 <owl:Class rdf:about="#ProteinGuideRnaComplexGlyph">
   <rdfs:subClassOf rdf:resource="#ComplexGlyph"/>
-  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules of comprising the complex.  For example, a protein bound to a small molecule, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules comprising the complex.  For example, a protein bound to a simple chemical, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProteinGuideRnaComplexGlyph</rdfs:label>
-  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-pr-specification.png</defaultGlyph>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-ps-specification.png</defaultGlyph>
   <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/complex</glyphDirectory>
   <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
 </owl:Class>
 
 <owl:Class rdf:about="#ProteinProteinComplexGlyph">
   <rdfs:subClassOf rdf:resource="#ComplexGlyph"/>
-  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules of comprising the complex.  For example, a protein bound to a small molecule, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules comprising the complex.  For example, a protein bound to a simple chemical, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProteinProteinComplexGlyph</rdfs:label>
-  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-pr-specification.png</defaultGlyph>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-ps-specification.png</defaultGlyph>
   <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/complex</glyphDirectory>
   <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
 </owl:Class>
@@ -1873,6 +1947,40 @@ Transcription/Translation End Point is a "stem-top" glyph for describing small s
   <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/ssNA</glyphDirectory>
 </owl:Class>
 
+<owl:Class rdf:about="#ProteinGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Glyph"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#isGlyphOf"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://sbols.org/v2#ComponentDefinition"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://sbols.org/v2#type"/>
+                  <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000252"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The protein glyph is a "pill" shape with a rectangular body and rounded ends, representing the compact space-filling mass of many proteins:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProteinGlyph</rdfs:label>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">protein-specification.png</defaultGlyph>
+  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/protein</glyphDirectory>
+  <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">AraC protein</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To avoid confusion with circles or ellipses, the "pill" shape SHOULD be significantly longer than it is tall, emphasizing its straight sides.
+
+Alternate BioPAX definition: Protein: http://www.biopax.org/release/biopax-level3.owl#Protein</notes>
+</owl:Class>
+
 <owl:Class rdf:about="#SimpleChemicalGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
   <owl:equivalentClass>
@@ -1896,13 +2004,54 @@ Transcription/Translation End Point is a "stem-top" glyph for describing small s
       </owl:intersectionOf>
     </owl:Class>
   </owl:equivalentClass>
-  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The small molecule glyph is a circle that stretches sideways into a "stadium" to accomodate longer names:</rdfs:comment>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The simple chemical glyph is any one of three small polygonal shapes, triangle, pentagon, or hexagon (in order: triangle, pentagon, hexagon):</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SimpleChemicalGlyph</rdfs:label>
-  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">small-molecule-specification.png</defaultGlyph>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Arabinose</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">It is RECOMMENDED that visual differentiation be maximized by associating each distinct species in a diagram with a different small geometric shape. Rotations may also be used (e.g., pentagon pointing up vs. pentagon pointing down).
+
+It is RECOMMENDED that labels should be placed outside of the shapes rather than inside, to avoid squeezing the labels.
+
+To avoid confusion with pills or ellipses, when the small circle alternative glyph is used, it SHOULD be significantly smaller than other types of molecular species glyphs, as indicated by the recommended scale of the glyph.
+
+Alternate BioPAX definition: Small Molecule: http://www.biopax.org/release/biopax-level3.owl#SmallMolecule</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#TriangleSimpleChemicalGlyph">
+  <rdfs:subClassOf rdf:resource="#SimpleChemicalGlyph"/>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The simple chemical glyph is any one of three small polygonal shapes, triangle, pentagon, or hexagon (in order: triangle, pentagon, hexagon):</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TriangleSimpleChemicalGlyph</rdfs:label>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">simple-chemical-triangle-specification.png</defaultGlyph>
   <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/simple-chemical</glyphDirectory>
   <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
-  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Arabinose</prototypicalExample>
-  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alternate BioPAX definition: Small Molecule: http://www.biopax.org/release/biopax-level3.owl#SmallMolecule</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#PentagonSimpleChemicalGlyph">
+  <rdfs:subClassOf rdf:resource="#SimpleChemicalGlyph"/>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The simple chemical glyph is any one of three small polygonal shapes, triangle, pentagon, or hexagon (in order: triangle, pentagon, hexagon):</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PentagonSimpleChemicalGlyph</rdfs:label>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">simple-chemical-triangle-specification.png</defaultGlyph>
+  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/simple-chemical</glyphDirectory>
+  <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
+</owl:Class>
+
+<owl:Class rdf:about="#HexagonSimpleChemicalGlyph">
+  <rdfs:subClassOf rdf:resource="#SimpleChemicalGlyph"/>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The simple chemical glyph is any one of three small polygonal shapes, triangle, pentagon, or hexagon (in order: triangle, pentagon, hexagon):</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HexagonSimpleChemicalGlyph</rdfs:label>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">simple-chemical-triangle-specification.png</defaultGlyph>
+  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/simple-chemical</glyphDirectory>
+  <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
+</owl:Class>
+
+<owl:Class rdf:about="#SimpleChemicalGlyphAlternative">
+  <rdfs:subClassOf rdf:resource="#SimpleChemicalGlyph"/>
+  <rdfs:subClassOf rdf:resource="#TriangleSimpleChemicalGlyph"/>
+  <rdfs:subClassOf rdf:resource="#PentagonSimpleChemicalGlyph"/>
+  <rdfs:subClassOf rdf:resource="#HexagonSimpleChemicalGlyph"/>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alternately, a simple chemical may also be represented a small circle:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SimpleChemicalGlyphAlternative</rdfs:label>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">simple-chemical-circle-specification.png</defaultGlyph>
+  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/simple-chemical</glyphDirectory>
 </owl:Class>
 
 <owl:Class rdf:about="#OverhangSiteGlyph">
