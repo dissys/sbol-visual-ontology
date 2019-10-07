@@ -9,7 +9,7 @@ from Ontology import  *
 
 import os
 
-sbolVisualDir= "../SBOL-visual/Glyphs"
+sbolVisualDir= "../../SBOL-visual/Glyphs"
 
 def parseFile(filePath):
     dir=os.path.dirname(filePath)

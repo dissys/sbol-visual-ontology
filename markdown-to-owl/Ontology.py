@@ -23,7 +23,7 @@ sbol2ns = sbol2.get_namespace("http://sbols.org/v2")
 SBO_BASE_IRI="http://biomodels.net/SBO/"
 SBO_INTERACTION_PARENT_TERM=SBO_BASE_IRI + "SBO_0000231"
 SBO_MATERIAL_ENTITY_TERM = SBO_BASE_IRI + "SBO_0000240"
-sboTypeChecker=RDFTypeChecker("sbo.owl")
+sboTypeChecker=RDFTypeChecker("../sbo.owl")
         
 class ComponentDefinition (Thing):
     namespace=sbol2
@@ -173,7 +173,7 @@ def createImageConstraints(sbolVisualTerm, allOntologyTerms):
             if sboTypeChecker.hasParent(sboUri, SBO_INTERACTION_PARENT_TERM): 
                 restrictionProperty=sbol2.type
                 entity=sbol2.Interaction
-            if sboTypeChecker.hasParent(sboUri, SBO_MATERIAL_ENTITY_TERM): 
+            elif sboTypeChecker.hasParent(sboUri, SBO_MATERIAL_ENTITY_TERM): 
                 restrictionProperty=sbol2.type
                 entity=sbol2.ComponentDefinition    
             else:
@@ -347,7 +347,7 @@ def addOntologyTerms(mdContent):
                 print ("------" + image)
                                                       
 def saveOntology():
-    onto.save(file = "sbol-vo.txt", format = "rdfxml")
-    onto.save(file = "sbol-vo.rdf", format = "rdfxml")
+    onto.save(file = "../sbol-vo.txt", format = "rdfxml")
+    onto.save(file = "../sbol-vo.rdf", format = "rdfxml")
       
     # isGlyphOf some  (role some SO:0000167)
