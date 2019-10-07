@@ -232,15 +232,16 @@ def createRecommendedTerms(sbolVisualMD, baseTerm, glyphBlocks, blockIndex,glyph
         if len(glyphTypes)>1:
             recommendedOntologyTerms=getOntologyTermsFromLabelsForEachRow(glyphTypes[index])
             createImageConstraints(recommendedSubTerm, [recommendedOntologyTerms])
-            index=index+1
+            
         else:
             test=""
+            test=test + "sdf"
         recommendedSubTerms.append(recommendedSubTerm)   
-    
+        index=index+1
     #If there is only one glyph type included, then there is no need to copy it to all recommended terms. These recommended terms 
     # should inherit the type from the base term. i.e. "complex"
     if len(glyphTypes)==1:
-        recommendedOntologyTerms=getOntologyTermsFromLabelsForEachRow(glyphTypes[index])
+        recommendedOntologyTerms=getOntologyTermsFromLabelsForEachRow(glyphTypes[0])
         createImageConstraints(baseTerm, [recommendedOntologyTerms])
         
     if  len(recommendedSubTerms)==0:
