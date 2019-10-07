@@ -35,7 +35,7 @@ public class App
     public static void main( String[] args ) throws IOException
     {
         System.out.print( "..." );
-        Document doc = Jsoup.parse(new File("../sbol-vo-org.htm"), "UTF-8");
+        Document doc = Jsoup.parse(new File("../sbol-vo-org.html"), "UTF-8");
        
         cleanHeaders(doc);
        
@@ -88,7 +88,7 @@ public class App
         	dl.append(imageTag); 	
         }
         
-        final File f = new File("../sbol-vo.htm");
+        final File f = new File("../sbol-vo.html");
         FileUtils.writeStringToFile(f, doc.outerHtml(), "UTF-8");
         System.out.println( "done!" );
     }
