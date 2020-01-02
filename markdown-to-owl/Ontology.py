@@ -179,12 +179,23 @@ def createImageConstraints(sbolVisualTerm, allOntologyTerms):
             else:
                 print("---Only SBO terms from" + SBO_INTERACTION_PARENT_TERM + " and " + SBO_MATERIAL_ENTITY_TERM + " are allowed!")
                 
-                 
+        
         if restrictionProperty:
+            sbolVisualTerm.isGlyphOf=entity #GMGMGM
+            for ontologyTerm in ontologyTerms :
+                #Use append rather than assigning to isGlyphOf to avoid overriding the previous subclass relationships.
+                sbolVisualTerm.isGlyphOf.append(restrictionProperty.some(ontologyTerm))
+                # This would be correct and a better way but would introduce RDF collection entities, which are not effective for SPARQL queries.
+                #sbolVisualTerm.isGlyphOf=entity & restrictionProperty.some(ontologyTerm)
+                
+            '''
+            This code works and was initially used to create subclass definitions as a single equivalentclass. However, SPARQL queries become difficult to write
+            due to introducing collectins. Hence, we adopt the approach above using subClassOf restrictions.
             if len(ontologyTerms)==1:
                 sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.some(entity & (restrictionProperty.some(ontologyTerms[0]))))] 
             elif len(ontologyTerms)>1:  
                 sbolVisualTerm.equivalent_to = [onto.Glyph & ( onto.isGlyphOf.some(entity & (restrictionProperty.some(Or(ontologyTerms)))))] 
+            '''
         else:
             print("---Could not find an allowed namespace: SO, BioPAX, SBO") 
 
