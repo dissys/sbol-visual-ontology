@@ -72,7 +72,9 @@ public class App
         	Statement stmtDir=r.getProperty(glyphDir);
         	String dir=stmtDir.getLiteral().asLiteral().getString();
         	dir=dir.replace("SBOL-visual/", "");        	
-        	value=String.format("https://github.com/SynBioDex/SBOL-visual/raw/master/%s/%s", dir, value);
+        	//value=String.format("https://github.com/SynBioDex/SBOL-visual/raw/master/%s/%s", dir, value);
+        	value=String.format("http://synbiodex.github.io/SBOL-visual/%s/%s", dir, value);
+        	
         	
         	//Find the dl tag to add the image in
         	//Find the a tag using the name
@@ -87,6 +89,9 @@ public class App
         	String imageTag=String.format("<dt>default glyph</dt><dd><img src='%s'></dd>", value);
         	dl.append(imageTag); 	
         }
+        
+        
+        cleanHeaders(doc);
         
         final File f = new File("../sbol-vo.html");
         FileUtils.writeStringToFile(f, doc.outerHtml(), "UTF-8");
@@ -117,7 +122,7 @@ public class App
     		
     	    for (Element el:dls)
     		{
-    			if (i>=2)
+    			if (i>=1)
     			{
     				toRemove.add(el);
     			}
