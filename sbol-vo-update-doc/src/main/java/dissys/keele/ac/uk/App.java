@@ -20,7 +20,7 @@ import org.jsoup.select.Elements;
  */
 public class App 
 {
-	private static String sbolbase="http://sbolstandard.org/visual#";
+	private static String sbolbase="http://sbols.org/visual/v2#";
     /*Steps (Make sure the remote and online Github repo includes the latest sbol.rdf)
      * 1- Remove the sbol-owl-org.htm
      * 2- Take a copy of the LODE from Github: git clone https://github.com/essepuntato/LODE.git
@@ -48,6 +48,26 @@ public class App
         	{
         		href="#" + getAfter(href, "#");
         		link.attr("href",href);
+        	}
+        	
+        	String title=link.attr("title");
+        	
+        	if (title!=null && title!="")
+        	{
+        		String newLocalUrl=title;
+        		if (title.contains(sbolbase))
+        		{
+        			newLocalUrl=title.replace(sbolbase, "");
+        		}
+        		String newLocalId=newLocalUrl.replace("#", "");
+        		
+        		String oldLocalId=getAfter(href, "#");
+        		link.attr("href", newLocalUrl);
+        		Element divContainer=doc.getElementById(oldLocalId);
+        		if (divContainer!=null) {
+        			divContainer.attr("id",newLocalId);
+        			 //addMissingComments(doc, divContainer, ontModel,newLocalId); 			
+        		}
         	}
         }
         
