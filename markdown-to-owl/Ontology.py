@@ -7,7 +7,7 @@ import re
 from RDFTypeChecker import RDFTypeChecker
 from SBOLVisualMarkDown import SBOLVisualMarkDown 
 
-onto = get_ontology("http://sbolstandard.org/visual#")
+onto = get_ontology("http://sbols.org/visual/v2")
 sbol = get_ontology("https://dissys.github.io/sbol-owl/sbol.rdf")
 sbol2 = get_ontology("http://sbols.org/v2")
 so = get_ontology("http://identifiers.org/so/")
