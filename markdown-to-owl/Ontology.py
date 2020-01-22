@@ -290,10 +290,13 @@ def createAlternativeTerms(sbolVisualMD, glyphBlocks, blockIndex,recommendedSubT
         #createImageConstraints(subTerm, [ontologyTermsForSubTerm])
         index=index+1
     return alternativeTerms
-                                                            
-def addOntologyTerms(mdContent):
+
+
+                                                                
+def addOntologyTerms(mdContent,termName):
     sbolVisualMD=SBOLVisualMarkDown(mdContent)
-    termName=sbolVisualMD.getGlyphLabel() 
+    #termName2=sbolVisualMD.getGlyphLabel() 
+    
     sbolVisualTerm=createVisualTerm(sbolVisualMD,termName)
     imageDirectory= sbolVisualMD.getDirectory()
     images=sbolVisualMD.getGlyphs()
@@ -313,7 +316,7 @@ def addOntologyTerms(mdContent):
     elif len(glyphTypes)==1 and len(images)==2:
         addImage(sbolVisualTerm, imageDirectory, images[0])
         sbolVisualTerm.recommended=True
-        alternateTermName=termName + "Alternative" 
+        alternateTermName=sbolVisualTerm.label[0]+ "Alternative" 
         alternativeTerm=createSubTerm(alternateTermName, sbolVisualTerm, sbolVisualMD.getCommentAfterImage(images[0]), imageDirectory, images[1])  
         #createImageConstraints(alternativeTerm, allOntologyTerms)
         alternativeTerm.isAlternativeOf=sbolVisualTerm
@@ -335,7 +338,7 @@ def addOntologyTerms(mdContent):
         elif (len(glyphBlocks[1])==1):
         #There are only two blocks and the there is only one image in the second block
             recommendedSubTerms=createRecommendedTerms(sbolVisualMD, sbolVisualTerm, glyphBlocks, 0, glyphTypes, imageDirectory)
-            alternateTermName=termName + "Alternative" 
+            alternateTermName=sbolVisualTerm.label[0] + "Alternative" 
             commentAlternative=getStringBetweenGlyphBlocks(sbolVisualMD, glyphBlocks, 0, 1)  
             alternativeTerm=createSubTerm(alternateTermName, sbolVisualTerm, commentAlternative, imageDirectory, glyphBlocks[1][0]) 
             for recommendedTerm in recommendedSubTerms:
@@ -363,3 +366,6 @@ def saveOntology():
     onto.save(file = "../sbol-vo.rdf", format = "rdfxml")
       
     # isGlyphOf some  (role some SO:0000167)
+    
+    
+    
