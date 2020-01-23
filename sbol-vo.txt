@@ -528,7 +528,7 @@ Examples of RECOMMENDED usage:
   <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The dissociation glyph is based on the SBGN Process Description dissociation glyph.</notes>
 </owl:Class>
 
-<owl:Class rdf:about="#ProcessGlyph_InteractionNodes">
+<owl:Class rdf:about="#ProcessNodeGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
   <rdfs:subClassOf>
     <owl:Restriction>
@@ -548,7 +548,7 @@ Examples of RECOMMENDED usage:
     </owl:Restriction>
   </rdfs:subClassOf>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A square node:</rdfs:comment>
-  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProcessGlyph_InteractionNodes</rdfs:label>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProcessNodeGlyph</rdfs:label>
   <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">process-specification.png</defaultGlyph>
   <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/InteractionNodes/process</glyphDirectory>
   <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
@@ -1918,7 +1918,7 @@ Transcription/Translation End Point is a "stem-top" glyph for describing small s
 Alternate BioPAX definition: Protein: http://www.biopax.org/release/biopax-level3.owl#Protein</notes>
 </owl:Class>
 
-<owl:Class rdf:about="#UnspecifiedGlyph_FunctionalComponents">
+<owl:Class rdf:about="#UnspecifiedSpeciesGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
   <rdfs:subClassOf>
     <owl:Restriction>
@@ -1938,7 +1938,7 @@ Alternate BioPAX definition: Protein: http://www.biopax.org/release/biopax-level
     </owl:Restriction>
   </rdfs:subClassOf>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unspecified is RECOMMENDED to be represented by the unicode "replacement character" glyph, indicating a missing or invalid symbol:</rdfs:comment>
-  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">UnspecifiedGlyph_FunctionalComponents</rdfs:label>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">UnspecifiedSpeciesGlyph</rdfs:label>
   <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">replacement-glyph-specification.png</defaultGlyph>
   <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/unspecified</glyphDirectory>
   <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
@@ -1948,26 +1948,26 @@ Alternate BioPAX definition: Protein: http://www.biopax.org/release/biopax-level
 Alternate BioPAX definition: PhysicalEntity: http://www.biopax.org/release/biopax-level3.owl#PhysicalEntity</notes>
 </owl:Class>
 
-<owl:Class rdf:about="#UnspecifiedGlyph_FunctionalComponentsAlternative">
-  <rdfs:subClassOf rdf:resource="#UnspecifiedGlyph_FunctionalComponents"/>
+<owl:Class rdf:about="#UnspecifiedSpeciesGlyphAlternative">
+  <rdfs:subClassOf rdf:resource="#UnspecifiedSpeciesGlyph"/>
   <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#isAlternativeOf"/>
-      <owl:someValuesFrom rdf:resource="#UnspecifiedGlyph_FunctionalComponents"/>
+      <owl:someValuesFrom rdf:resource="#UnspecifiedSpeciesGlyph"/>
     </owl:Restriction>
   </rdfs:subClassOf>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An alternative is the SBGN "generic species" glyph, which is an ellipse:</rdfs:comment>
-  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">UnspecifiedGlyph_FunctionalComponentsAlternative</rdfs:label>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">UnspecifiedSpeciesGlyphAlternative</rdfs:label>
   <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">generic-sbgn-specification.png</defaultGlyph>
   <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/unspecified</glyphDirectory>
 </owl:Class>
 
-<owl:Class rdf:about="#NoGlyphAssignedGlyph_FunctionalComponents">
+<owl:Class rdf:about="#NoGlyphAssignedSpeciesGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When a species has no assigned glyph it is RECOMMENDED that a user provide their own glyph. The user is also encouraged to submit the new glyph for possible adoption into the SBOLv standard.
 
 An alternative option is to have a bracket, suggesting information that needs to be filled in:</rdfs:comment>
-  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NoGlyphAssignedGlyph_FunctionalComponents</rdfs:label>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NoGlyphAssignedSpeciesGlyph</rdfs:label>
   <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">no-glyph-assigned-specification.png</defaultGlyph>
   <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/no-glyph-assigned</glyphDirectory>
   <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>

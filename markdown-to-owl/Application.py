@@ -8,6 +8,7 @@ from MarkDown import  *
 from Ontology import  *
 
 import os
+from numpy.distutils.exec_command import filepath_from_subprocess_output
 
 sbolVisualDir= "../../SBOL-visual/Glyphs"
 
@@ -32,14 +33,71 @@ def parseFileDel(filePath):
     md.parseMdFile() 
     addOntologyTerms(md)
 
+    
+    
 def updateTitle(title, fileNameFragments):
-    #title=title.replace("Glyph","")
+    if title.endswith("Glyph"):
+        title = title[:-len("Glyph")]
+    
     fragmentCount=len(fileNameFragments)
     suffix=fileNameFragments[fragmentCount-3]
-    return title + "_" + suffix
+    if suffix=="FunctionalComponents":
+        suffix="Species"
+    elif suffix=="InteractionNodes": 
+        suffix="Node"
+    else:
+        raise("Can't infer the identifier for " + title)
+    return title + suffix + "Glyph"
      
+
+def updateExisting(filePath, existingFilePath):
+    fileNameFragments=filePath.split('/');
+    fileNameFragmentsExisting=existingFilePath.split('/');
+    if len(fileNameFragmentsExisting) > len(fileNameFragments):
+        #The existing record is in a deeper directory, prioritise the current record and add the suffix to the existing record
+        return True
+    elif "Interaction/" in filePath and "InteractionNodes/" in existingFilePath:
+        return True
+    else:
+        return False
     
 def inferIdentifiers(directory,identifiers):
+    files=os.listdir(directory)
+   
+    for file in files :
+        filePath=directory + "/" + file
+        if os.path.isdir(filePath):
+            inferIdentifiers(filePath,identifiers)
+        elif file=="README.md":
+            md=MarkDown(sbolVisualDir,filePath) 
+            md.parseMdFile() 
+            visualMd=SBOLVisualMarkDown(md)
+            title=visualMd.getGlyphLabel()
+            existingFilePath=identifiers.get(title)
+            if existingFilePath==None :
+                #A new record, add to the dictionary
+                identifiers[title]=filePath
+            else:
+                fileNameFragments=filePath.split('/');
+                fileNameFragmentsExisting=existingFilePath.split('/');
+                if updateExisting(filePath, existingFilePath):
+                    existingTitle=updateTitle(title, fileNameFragmentsExisting)
+                    identifiers[existingTitle]=existingFilePath
+                    identifiers[title]=filePath
+                    print ("******Changed the identifier from " + title + " to " + existingTitle + ". File:" + existingFilePath );
+                    print ("***********The new term for " + title + " has also been added. File:" + filePath);
+                    
+                else:
+                    # Prioritise the existing record, add the suffix to the current record. 
+                    newTitle=updateTitle(title, fileNameFragments)
+                    identifiers[newTitle]=filePath
+                    print ("******Changed the identifier from " + title + " to " + newTitle + ". File:" + filePath );
+                    print ("*********** The existing term for " + title + " was kept. File:" + existingFilePath );
+                    
+                    
+    return identifiers     
+
+def inferIdentifiersDel(directory,identifiers):
     files=os.listdir(directory)
    
     for file in files :
