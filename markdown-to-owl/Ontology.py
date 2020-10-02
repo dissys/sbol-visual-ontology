@@ -53,6 +53,38 @@ class Glyph(Thing):
     namespace=onto
     label ="Glyph"
 
+with onto:    
+    class InteractionGlyph(Glyph):
+        namespace=onto
+        label ="InteractionGlyph"
+        
+    class InteractionNodeGlyph(Glyph):
+        namespace=onto
+        label ="InteractionNodeGlyph" 
+    
+    class MolecularSpeciesGlyph(Glyph):
+        namespace=onto
+        label ="MolecularSpeciesGlyph"      
+        
+    class SequenceFeatureGlyph(Glyph):
+        namespace=onto
+        label ="SequenceFeatureGlyph"      
+
+with onto:
+    AllDisjoint([InteractionGlyph, InteractionNodeGlyph,MolecularSpeciesGlyph, SequenceFeatureGlyph])
+    
+
+onto2 = get_ontology("http://test.org/onto.owl")
+with onto2:
+    class Drug(Thing):
+        pass
+    class ActivePrinciple(Thing):
+        pass
+    AllDisjoint([Drug, ActivePrinciple])
+    
+    
+#, MolecularSpeciesGlyph, SequenceFeatureGlyph)     
+
 class isGlyphOf(ObjectProperty):
     range:Glyph
     namespace=onto
@@ -100,6 +132,17 @@ class notes(AnnotationProperty):
     namespace=onto  
     label ="notes"  
 
+def getCategoryGlyph(sbolVisualMD):
+    if "/Interactions/" in sbolVisualMD.getDirectory():
+        return InteractionGlyph
+    elif "/InteractionNodes/" in sbolVisualMD.getDirectory():
+        return InteractionNodeGlyph
+    elif "/FunctionalComponents/" in sbolVisualMD.getDirectory():
+        return MolecularSpeciesGlyph
+    else: 
+        return SequenceFeatureGlyph
+    
+
 def createOntologyClass(termName, baseClass, ns):
     sbolVisualTerm = types.new_class(termName, (baseClass,))
     #types.new_class("NewClassName", (onto["classname"],))
@@ -116,10 +159,21 @@ def addImage(ontologyClass,imageDirectory, image):
         
 def createVisualTerm(sbolVisualMD,termName):
     sbolVisualTerm = createOntologyClass(termName, onto.Glyph, onto)
+    categoryGlyph=getCategoryGlyph(sbolVisualMD)
+    sbolVisualTerm.is_a.append(categoryGlyph)
     sbolVisualTerm.comment=sbolVisualMD.getComment()  
     sbolVisualTerm.prototypicalExample=sbolVisualMD.getExample()
     sbolVisualTerm.notes=sbolVisualMD.getNotes()
     return sbolVisualTerm
+
+''' GM: 20200902- Commented the previous working copy
+def createVisualTerm(sbolVisualMD,termName):
+    sbolVisualTerm = createOntologyClass(termName, onto.Glyph, onto)
+    sbolVisualTerm.comment=sbolVisualMD.getComment()  
+    sbolVisualTerm.prototypicalExample=sbolVisualMD.getExample()
+    sbolVisualTerm.notes=sbolVisualMD.getNotes()
+    return sbolVisualTerm
+'''
 
 def getOntologyTermsFromLabels(glyphTypes):
     allOntologyTerms=[]

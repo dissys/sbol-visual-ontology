@@ -16,3 +16,22 @@ SBOL-VO is available as an RDF file. [Click here](http://dissys.github.io/sbol-v
 
 ## Development
 The Python code to generate the ontology is maintained by [Goksel Misirli](mailto:g.misirli@keele.ac.uk) and is available at the [sbol-visual-ontology](https://github.com/dissys/sbol-visual-ontology) GitHub repository.
+
+If you are interested in contributing, please see below.
+### Prerequisites
+* Make sure you have git and python3 installed. Then install owlready2 and rdflib python libraries. 
+```
+pip3 install owlready2
+pip3 install rdflib
+```
+* Download SBOL-Visual project.
+```
+git clone https://github.com/SynBioDex/SBOL-visual.git
+```
+ and place it at the same level with the SBOL-Visual-Ontology folder. The parent working folder should look like below:
+```
+- Parent working folder
+  - SBOL-visual
+  - sbol-visual-ontology
+```
+
