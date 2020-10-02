@@ -79,3 +79,6 @@ git add <filesYouChanged>
 git commit
 git push origin <newBranch>
 ```
+
+#### Synching changes with the SBOL-Visual repository
+These changes will then be uploaded to SBOL-visual ontology v2 directory after the changes are reviewed and incorporated. Alternatively, please follow the insructions at https://github.com/SynBioDex/SBOL-visual to incorporate the changes to the https://github.com/SynBioDex/SBOL-visual/tree/master/Ontology/v2 folder directly.
