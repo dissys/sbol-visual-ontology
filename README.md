@@ -57,3 +57,23 @@ http://localhost:8080/lode/extract?url=https://dissys.github.io/sbol-visual-onto
 ```
 mvn exec:java -Dexec.mainClass="uk.ac.keele.dissys.sbolvo.html.App" 
 ```
+
+### Submitting changes
+Note: Update instructions are adapted from
+https://github.com/SynBioDex/SBOL-visual.
+
+Updates should be made in a branch or a separate fork on GitHub. To do this, follow standard git branching or forking procedure.
+
+Here is an example of git commands to achieve this:
+```
+git clone https://github.com/dissys/sbol-visual-ontology.git
+git pull origin master # MAKE SURE NO ONE HAS MADE ANYMORE CHANGES
+git checkout -b <newBranch> # CREATE NEW BRANCH
+```
+
+ Make your edits and use the following commands to add them to your own GitHub branch.
+```
+git add <filesYouChanged>
+git commit
+git push origin <newBranch>
+```
