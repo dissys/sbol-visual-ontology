@@ -1,4 +1,4 @@
-package dissys.keele.ac.uk;
+package uk.ac.keele.dissys.sbolvo.html;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,16 +27,20 @@ public class App
      * 3 - Run LODE:
      * 	cd LODE
      *  mvn clean jetty:run
-     *  4 - Save the output from the following URL as sbol-owl.html
+     *  4 - Save the output from the following URL as sbol-vo.html
      *      http://localhost:8080/lode/extract?url=https://dissys.github.io/sbol-visual-ontology/sbol-vo.rdf
-     *  5- Rename the sbol-vo.htm as sbol-vo-org.htm
-     *  6 - Run this App.java to create the updated sbol-vo.htm with images
+     *  5 - Run this App.java to create the updated sbol-vo.htm with images
      * */
     public static void main( String[] args ) throws IOException
     {
         System.out.print( "..." );
-        Document doc = Jsoup.parse(new File("../sbol-vo-org.html"), "UTF-8");
-       
+        File source = new File("../sbol-vo.html");
+       // File dest = new File("../sbol-vo-org.html");
+       //Files.copy(source.toPath(), dest.toPath(),StandardCopyOption.REPLACE_EXISTING);
+        
+        Document doc = Jsoup.parse(source, "UTF-8");
+        //Document doc = Jsoup.parse(new File("../sbol-vo-org.html"), "UTF-8");
+        
         cleanHeaders(doc);
        
         Elements links = doc.select("a");
@@ -113,8 +117,8 @@ public class App
         
         cleanHeaders(doc);
         
-        final File f = new File("../sbol-vo.html");
-        FileUtils.writeStringToFile(f, doc.outerHtml(), "UTF-8");
+        //final File f = new File("../sbol-vo.html");
+        FileUtils.writeStringToFile(source, doc.outerHtml(), "UTF-8");
         System.out.println( "done!" );
     }
     
