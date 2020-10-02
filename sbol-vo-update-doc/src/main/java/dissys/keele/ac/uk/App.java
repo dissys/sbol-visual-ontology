@@ -27,7 +27,7 @@ public class App
      * 3 - Run LODE:
      * 	cd LODE
      *  mvn clean jetty:run
-     *  4 - Save the output from the following URL as sbol-owl.htm
+     *  4 - Save the output from the following URL as sbol-owl.html
      *      http://localhost:8080/lode/extract?url=https://dissys.github.io/sbol-visual-ontology/sbol-vo.rdf
      *  5- Rename the sbol-vo.htm as sbol-vo-org.htm
      *  6 - Run this App.java to create the updated sbol-vo.htm with images
