@@ -18,6 +18,22 @@
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasGlyph</rdfs:label>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#hasHead">
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasHead</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasTail">
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasTail</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasIncoming">
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasIncoming</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasOutgoing">
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasOutgoing</rdfs:label>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#isAlternativeOf">
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">isAlternativeOf</rdfs:label>
 </owl:ObjectProperty>
@@ -69,7 +85,46 @@
 
 <owl:Class rdf:about="#InhibitionGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasHead"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000642"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasTail"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000020"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:subClassOf rdf:resource="#InteractionGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom rdf:resource="http://sbols.org/v2#Interaction"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#type"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000169"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An arrow whose head is a bar, suggesting blocking:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">InhibitionGlyph</rdfs:label>
   <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">inhibition-specification.png</defaultGlyph>
@@ -81,7 +136,35 @@
 
 <owl:Class rdf:about="#DegradationGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasTail"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000010"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:subClassOf rdf:resource="#InteractionGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom rdf:resource="http://sbols.org/v2#Interaction"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#type"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000179"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Identical to the Process glyph, but with an empty set at the sink of the arrowhead:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DegradationGlyph</rdfs:label>
   <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">degradation-specification.png</defaultGlyph>
@@ -93,7 +176,46 @@
 
 <owl:Class rdf:about="#StimulationGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasHead"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000643"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasTail"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000459"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:subClassOf rdf:resource="#InteractionGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom rdf:resource="http://sbols.org/v2#Interaction"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#type"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000170"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An arrow with an head that is empty or of a different color than the line:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">StimulationGlyph</rdfs:label>
   <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">stimulation-specification.png</defaultGlyph>
@@ -105,7 +227,46 @@
 
 <owl:Class rdf:about="#ControlGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasHead"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000644"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasTail"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000019"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:subClassOf rdf:resource="#InteractionGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom rdf:resource="http://sbols.org/v2#Interaction"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#type"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000168"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An arrow with a diamond head:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ControlGlyph</rdfs:label>
   <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">control-specification.png</defaultGlyph>
@@ -117,7 +278,57 @@
 
 <owl:Class rdf:about="#ProcessGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasHead"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000011"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasTail"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000010"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasTail"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000645"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:subClassOf rdf:resource="#InteractionGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom rdf:resource="http://sbols.org/v2#Interaction"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#type"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000375"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An arrow with a filled head the same color as the line:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProcessGlyph</rdfs:label>
   <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">process-specification.png</defaultGlyph>
@@ -420,7 +631,46 @@ Examples of RECOMMENDED usage:
 
 <owl:Class rdf:about="#AssociationGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasIncoming"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000010"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasOutgoing"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000011"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:subClassOf rdf:resource="#InteractionNodeGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom rdf:resource="http://sbols.org/v2#Interaction"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#type"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000177"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A circular node:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">AssociationGlyph</rdfs:label>
   <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">association-specification.png</defaultGlyph>
@@ -430,9 +680,90 @@ Examples of RECOMMENDED usage:
   <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The association glyph is based on the SBGN Process Description association glyph.</notes>
 </owl:Class>
 
+<owl:Class rdf:about="#UnspecifiedNodeGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasIncoming"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000003"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf rdf:resource="#InteractionNodeGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom rdf:resource="http://sbols.org/v2#Interaction"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#type"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000231"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unspecified is represented by the unicode "replacement character" glyph, indicating a missing or invalid symbol:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">UnspecifiedNodeGlyph</rdfs:label>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unspecified-glyph-specification.png</defaultGlyph>
+  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/InteractionNodes/unspecified</glyphDirectory>
+  <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An interaction that is missing any information about its nature or intended purpose.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Note that there are no outgoing edges for the Unspecified interaction, because there is no difference in roles to indicate.
+
+The Unspecified glyph is intended for showing where information about an interaction is missing. It should not generally appear with well-curated designs or diagrams.</notes>
+</owl:Class>
+
 <owl:Class rdf:about="#DissociationGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasIncoming"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000010"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasOutgoing"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000011"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:subClassOf rdf:resource="#InteractionNodeGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom rdf:resource="http://sbols.org/v2#Interaction"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#type"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000180"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An circular node inside another circle</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DissociationGlyph</rdfs:label>
   <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dissociation-specification.png</defaultGlyph>
@@ -444,7 +775,46 @@ Examples of RECOMMENDED usage:
 
 <owl:Class rdf:about="#ProcessNodeGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasIncoming"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000010"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasOutgoing"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000011"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:subClassOf rdf:resource="#InteractionNodeGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom rdf:resource="http://sbols.org/v2#Interaction"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#type"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/sbo/SBO:0000375"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A square node:</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProcessNodeGlyph</rdfs:label>
   <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">process-specification.png</defaultGlyph>
@@ -854,7 +1224,9 @@ The Ribonuclease Site, Protease Site, and Restriction Enzyme Recognition Site gl
 
 Describing a Restriction Enzyme Cleavage Site with a vertical line glyph on a DNA backbone (as done previously in SBOL Visual 1.0 via the Restriction Enzyme Recognition Site glyph) can persist in a SBOL Visual 2 diagram and still be considered compliant with SBOL Visual 2, where it is now classified as a Biopolymer Location (which is a superclass of cleavage sites). Thus, the Biopolymer Location glyph from SBOL Visual 2.0 is backwards compatible with the Restriction Enzyme Recognition Site glyph from SBOL Visual 1.0.
 
-The 5' Sticky Restriction Site, 3' Sticky Restriction Site, and Blunt Restriction Site glyphs remain unchanged, and are more specific children/derivatives of the DNA-Stem Cleavage-Top glyph.</notes>
+The 5' Sticky Restriction Site, 3' Sticky Restriction Site, and Blunt Restriction Site glyphs remain unchanged, and are more specific children/derivatives of the DNA-Stem Cleavage-Top glyph.
+
+A 2A self-cleaving polypeptide region (SO:0002224) SHOULD NOT be represented by a protease site, as its cleavage mechanism is different. Instead, 2A sequences should be represented using the Polypeptide Region glyph (see example in its specification).</notes>
 </owl:Class>
 
 <owl:Class rdf:about="#DnaCleavageSiteGlyph">
@@ -1293,7 +1665,7 @@ For example, at present there is no glyph recommended for representing a transpo
   <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/insulator</glyphDirectory>
   <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
   <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RiboJ</prototypicalExample>
-  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This glyph is deprecated in favor of inert DNA spacer.</notes>
 </owl:Class>
 
 <owl:Class rdf:about="#OriginofTransferGlyph">
@@ -1389,7 +1761,38 @@ coding sequence for the membrane-crossing region of a protein
 This glyph is intended to be used in composition or superposition with the glyph for the coding sequence of which the polypeptide regions are fragments: Example of a coding sequence with three designated domains, an N-tag (blue), C-tag (yellow), and internal region (red):
 
 ![example of usage](polypeptide-region-example.png)</prototypicalExample>
-  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*This section left deliberately blank*</notes>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Polypeptide region can also be used to represent regions that involve cleavage, such as a 2A self-cleaving polypeptide region (SO:0002224, a child term of SO:0000839). It is RECOMMENDED that cleavage-inducing polypeptide regions be visually distinguished from intact, e.g., through the use of dashed lines.
+
+![example of usage](polypeptide-2a-example.png)</notes>
+</owl:Class>
+
+<owl:Class rdf:about="#InertDNASpacerGlyph">
+  <rdfs:subClassOf rdf:resource="#Glyph"/>
+  <rdfs:subClassOf rdf:resource="#SequenceFeatureGlyph"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom rdf:resource="http://sbols.org/v2#ComponentDefinition"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isGlyphOf"/>
+      <owl:someValuesFrom>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://sbols.org/v2#role"/>
+          <owl:someValuesFrom rdf:resource="http://identifiers.org/so/SO:0002223"/>
+        </owl:Restriction>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The inert DNA spacer glyph is a circle with an X in its middle, suggesting the intent to cancel possible interactions:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">InertDNASpacerGlyph</rdfs:label>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">inert-dna-spacer-specification.png</defaultGlyph>
+  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/inert-dna-spacer</glyphDirectory>
+  <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
+  <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Inserted 5' sequence intended to reduce effect of upstream genetic context on promoter behavior.</prototypicalExample>
+  <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">*this section deliberately blank*</notes>
 </owl:Class>
 
 <owl:Class rdf:about="#BluntRestrictionSiteGlyph">
@@ -1729,44 +2132,6 @@ Transcription/Translation End Point is a "stem-top" glyph for describing small s
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ComplexGlyph</rdfs:label>
   <prototypicalExample rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Arabinose bound to AraC</prototypicalExample>
   <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alternate BioPAX definition: Complex: http://www.biopax.org/release/biopax-level3.owl#Complex</notes>
-</owl:Class>
-
-<owl:Class rdf:about="#ProteinSmallMoleculeComplexGlyph">
-  <rdfs:subClassOf rdf:resource="#ComplexGlyph"/>
-  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules comprising the complex.  For example, a protein bound to a simple chemical, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
-  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProteinSmallMoleculeComplexGlyph</rdfs:label>
-  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-ps-specification.png</defaultGlyph>
-  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/complex</glyphDirectory>
-  <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
-</owl:Class>
-
-<owl:Class rdf:about="#ProteinGuideRnaComplexGlyph">
-  <rdfs:subClassOf rdf:resource="#ComplexGlyph"/>
-  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules comprising the complex.  For example, a protein bound to a simple chemical, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
-  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProteinGuideRnaComplexGlyph</rdfs:label>
-  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-pr-specification.png</defaultGlyph>
-  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/complex</glyphDirectory>
-  <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
-</owl:Class>
-
-<owl:Class rdf:about="#ProteinProteinComplexGlyph">
-  <rdfs:subClassOf rdf:resource="#ComplexGlyph"/>
-  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules comprising the complex.  For example, a protein bound to a simple chemical, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
-  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProteinProteinComplexGlyph</rdfs:label>
-  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-pp-specification.png</defaultGlyph>
-  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/complex</glyphDirectory>
-  <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
-</owl:Class>
-
-<owl:Class rdf:about="#ComplexGlyphAlternative">
-  <rdfs:subClassOf rdf:resource="#ComplexGlyph"/>
-  <rdfs:subClassOf rdf:resource="#ProteinSmallMoleculeComplexGlyph"/>
-  <rdfs:subClassOf rdf:resource="#ProteinGuideRnaComplexGlyph"/>
-  <rdfs:subClassOf rdf:resource="#ProteinProteinComplexGlyph"/>
-  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An alternative is the SBGN "cornered rectangle" glyph for a complex:</rdfs:comment>
-  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ComplexGlyphAlternative</rdfs:label>
-  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-sbgn-specification.png</defaultGlyph>
-  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/complex</glyphDirectory>
 </owl:Class>
 
 <owl:Class rdf:about="#Single-StrandedNucleicAcidGlyph">

@@ -16,7 +16,7 @@ class SBOLVisualMarkDown (object):
         termName=self._mdContent.title.replace(" ","").replace("/","") + "Glyph"  
         return termName
     
-    def getGlyphTypes(self):
+    def getGlyphTypesORG_Del(self):
         glyphTypesTemp=self._mdContent.terms.rstrip().split("\n")
         glyphTypes=[]
         
@@ -38,8 +38,103 @@ class SBOLVisualMarkDown (object):
                     items=[]
                     allTerms.append(items)
                     print ("---No Ontology term specified!")   
-        return allTerms         
-     
+        return allTerms   
+    
+    def getGlyphTypesFromString(self,glyphTypeContent):
+        glyphTypesTemp=glyphTypeContent.rstrip().split("\n")
+        glyphTypes=[]
+        
+        for glyphType in glyphTypesTemp:
+            if glyphType.strip():
+                glyphTypes.append(glyphType)
+        allTerms=[]         
+        for line in glyphTypes:
+            if len(line)>0:
+                #print ("line:" +  line)
+                items=re.findall('[A-Z]+:[0-9]+', line)
+                if not items:
+                    #html url regex: http://www.noah.org/wiki/RegEx_Python
+                    items=re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+#]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', line)
+                    
+                if items: 
+                    allTerms.append(items)
+                else:
+                    items=[]
+                    allTerms.append(items)
+                    print ("---No Ontology term specified!")   
+        return allTerms   
+    
+    ''' Associated SBO term(s)
+    SBO:0000169 Inhibition
+    Head: SBO:0000642 Inhibited 
+    Tail: SBO:0000020 Inhibitor
+    '''
+    def getGlyphTypes(self):
+        text=self._mdContent.terms.rstrip()
+        #If Head information is included, terms are until Head.
+        index=text.find("Head:")
+        if index==-1:
+            index=text.find("Incoming:")
+        
+        if index>-1:
+            text=text[0:index]
+        return self.getGlyphTypesFromString(text) 
+    
+    def getTextBetween(self, text, startString,endString):
+        text=text.rstrip()
+        indexHead=text.find(startString)
+        indexTail=text.find(endString)
+        #If Head information is included terms are until Head.
+        if indexHead>0:
+            if indexTail>0:
+                text=text[indexHead:indexTail]
+            else:    
+                text=text[indexHead:]
+            text=text.rstrip()
+            return text
+        else:
+            return None
+    
+    def getTextAfter(self, text, startString):
+        text=text.rstrip()
+        indexTail=text.find(startString)
+        #If Head information is included terms are until Head.
+        if indexTail>0:
+            text=text[indexTail:]
+            text=text.rstrip()
+            return text  
+        else:
+            return None
+         
+    def getIncomingTypes(self):
+        text=self.getTextBetween(self._mdContent.terms, "Incoming:", "Outgoing:")
+        if text:
+            return self.getGlyphTypesFromString(text)  
+        else:
+            return None
+        
+    def getOutgoingTypes(self):
+        text=self.getTextAfter(self._mdContent.terms, "Outgoing:")
+        if text:
+            return self.getGlyphTypesFromString(text)  
+        else:
+            return None
+           
+    def getHeadTypes(self):
+        text=self.getTextBetween(self._mdContent.terms, "Head:", "Tail:")
+        if text:
+            return self.getGlyphTypesFromString(text)  
+        else:
+            return None
+        
+    def getTailTypes(self):
+        text=self.getTextAfter(self._mdContent.terms, "Tail:")
+        if text:
+            return self.getGlyphTypesFromString(text)  
+        else:
+            return None
+        
+  
     def getCommentFromText(self,text):
         index=text.find(self.GLYPH_START)
         comment=text[0:index-1].rstrip()

@@ -96,6 +96,26 @@ class hasGlyph(ObjectProperty):
     namespace=onto
     label ="hasGlyph"
     
+class hasHead(ObjectProperty):
+    domain:Glyph
+    namespace=onto
+    label ="hasHead"
+    
+class hasTail(ObjectProperty):
+    domain:Glyph
+    namespace=onto
+    label ="hasTail"
+    
+class hasIncoming(ObjectProperty):
+    domain:Glyph
+    namespace=onto
+    label ="hasIncoming"
+    
+class hasOutgoing(ObjectProperty):
+    domain:Glyph
+    namespace=onto
+    label ="hasOutgoing"
+    
 class defaultGlyph(AnnotationProperty):
     domain:Glyph
     range: [str]
@@ -157,9 +177,22 @@ def addImage(ontologyClass,imageDirectory, image):
     ontologyClass.glyphDirectory=imageDirectory
     
         
+def createVisualTermORG_Del(sbolVisualMD,termName):
+    sbolVisualTerm = createOntologyClass(termName, onto.Glyph, onto)
+    categoryGlyph=getCategoryGlyph(sbolVisualMD)
+    sbolVisualTerm.is_a.append(categoryGlyph)
+    sbolVisualTerm.comment=sbolVisualMD.getComment()  
+    sbolVisualTerm.prototypicalExample=sbolVisualMD.getExample()
+    sbolVisualTerm.notes=sbolVisualMD.getNotes()
+    return sbolVisualTerm
+
 def createVisualTerm(sbolVisualMD,termName):
     sbolVisualTerm = createOntologyClass(termName, onto.Glyph, onto)
     categoryGlyph=getCategoryGlyph(sbolVisualMD)
+    if categoryGlyph==InteractionGlyph:
+        createInteractionEdgeConstraints(sbolVisualTerm, sbolVisualMD)
+    if categoryGlyph==InteractionNodeGlyph:
+        createInteractionNodeConstraints (sbolVisualTerm, sbolVisualMD)
     sbolVisualTerm.is_a.append(categoryGlyph)
     sbolVisualTerm.comment=sbolVisualMD.getComment()  
     sbolVisualTerm.prototypicalExample=sbolVisualMD.getExample()
@@ -207,7 +240,53 @@ def hasNameSpace(ontologyTerms, ns):
         if term.namespace==ns:
             return True
         return False
-    
+
+def toOneDimensional(allOntologyTerms):
+    ontologyTerms=[]
+    for terms in allOntologyTerms:
+        for term in terms :
+            ontologyTerms.append(term) 
+    return ontologyTerms
+
+     
+def createInteractionEdgeConstraints(sbolVisualTerm, sbolVisualMD):
+    headTerms=sbolVisualMD.getHeadTypes()
+    if headTerms:
+        allOntologyTerms= getOntologyTermsFromLabels(headTerms)
+        ontologyTerms=toOneDimensional(allOntologyTerms)
+        if ontologyTerms:
+            for ontologyTerm in ontologyTerms :
+                #Use append rather than assigning to avoid overriding the previous subclass relationships.
+                sbolVisualTerm.hasHead.append(sbol2.role.some(ontologyTerm))
+            
+    tailTerms=sbolVisualMD.getTailTypes()
+    if tailTerms:
+        allOntologyTerms= getOntologyTermsFromLabels(tailTerms)
+        ontologyTerms=toOneDimensional(allOntologyTerms)
+        if ontologyTerms:
+            for ontologyTerm in ontologyTerms :
+                #Use append rather than assigning to avoid overriding the previous subclass relationships.
+                sbolVisualTerm.hasTail.append(sbol2.role.some(ontologyTerm))       
+ 
+def createInteractionNodeConstraints(sbolVisualTerm, sbolVisualMD):
+    headTerms=sbolVisualMD.getIncomingTypes()
+    if headTerms:
+        allOntologyTerms= getOntologyTermsFromLabels(headTerms)
+        ontologyTerms=toOneDimensional(allOntologyTerms)
+        if ontologyTerms:
+            for ontologyTerm in ontologyTerms :
+                #Use append rather than assigning to avoid overriding the previous subclass relationships.
+                sbolVisualTerm.hasIncoming.append(sbol2.role.some(ontologyTerm))
+            
+    tailTerms=sbolVisualMD.getOutgoingTypes()
+    if tailTerms:
+        allOntologyTerms= getOntologyTermsFromLabels(tailTerms)
+        ontologyTerms=toOneDimensional(allOntologyTerms)
+        if ontologyTerms:
+            for ontologyTerm in ontologyTerms :
+                #Use append rather than assigning to avoid overriding the previous subclass relationships.
+                sbolVisualTerm.hasOutgoing.append(sbol2.role.some(ontologyTerm))     
+               
 def createImageConstraints(sbolVisualTerm, allOntologyTerms):
     ontologyTerms=[]
     for terms in allOntologyTerms:

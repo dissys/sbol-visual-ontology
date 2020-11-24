@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1601634179898" name="http://biomodels.net/SBO/" uri="sbo.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1601634179898" name="http://sbols.org/visual/v2" uri="sbol-vo.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1606244125219" name="http://biomodels.net/SBO/" uri="sbo.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1606244125219" name="http://sbols.org/visual/v2" uri="sbol-vo.rdf"/>
     </group>
 </catalog>
