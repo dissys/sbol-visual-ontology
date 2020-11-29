@@ -152,7 +152,8 @@ class SBOLVisualMarkDown (object):
         images=[]
         items=re.findall('!\[(.*?)\]\((.*?)\)',text)
         for item in items:
-            images.append(item[1])
+            if item[0].find("glyph specification")>-1:
+                images.append(item[1])
         return images  
     
     def removeLineBreaks(self,text):

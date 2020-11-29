@@ -2134,6 +2134,48 @@ Transcription/Translation End Point is a "stem-top" glyph for describing small s
   <notes rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alternate BioPAX definition: Complex: http://www.biopax.org/release/biopax-level3.owl#Complex</notes>
 </owl:Class>
 
+<owl:Class rdf:about="#ProteinSmallMoleculeComplexGlyph">
+  <rdfs:subClassOf rdf:resource="#ComplexGlyph"/>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules comprising the complex.  For example, a protein bound to a simple chemical, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProteinSmallMoleculeComplexGlyph</rdfs:label>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-ps-specification.png</defaultGlyph>
+  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/complex</glyphDirectory>
+  <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
+</owl:Class>
+
+<owl:Class rdf:about="#ProteinGuideRnaComplexGlyph">
+  <rdfs:subClassOf rdf:resource="#ComplexGlyph"/>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules comprising the complex.  For example, a protein bound to a simple chemical, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProteinGuideRnaComplexGlyph</rdfs:label>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-pr-specification.png</defaultGlyph>
+  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/complex</glyphDirectory>
+  <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
+</owl:Class>
+
+<owl:Class rdf:about="#ProteinProteinComplexGlyph">
+  <rdfs:subClassOf rdf:resource="#ComplexGlyph"/>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The RECOMMENDED glyph for a complex is a composite of the glyphs for the molecules comprising the complex.  For example, a protein bound to a simple chemical, a guide RNA, or another protein (in order:protein-small molecule, protein-guide RNA, protein-protein):</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ProteinProteinComplexGlyph</rdfs:label>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-pp-specification.png</defaultGlyph>
+  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/complex</glyphDirectory>
+  <recommended rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</recommended>
+</owl:Class>
+
+<owl:Class rdf:about="#ComplexGlyphAlternative">
+  <rdfs:subClassOf rdf:resource="#ComplexGlyph"/>
+  <rdfs:subClassOf rdf:resource="#ProteinSmallMoleculeComplexGlyph"/>
+  <rdfs:subClassOf rdf:resource="#ProteinGuideRnaComplexGlyph"/>
+  <rdfs:subClassOf rdf:resource="#ProteinProteinComplexGlyph"/>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This may also be applied to show complex formation (binding) of a molecule to a nucleic acid construct by compositing the molecule glyph with the appropriate portion of the nucleic acid construct. For example, a protein binding to the promoter of a transcriptional unit:
+
+![glyph example](complex-pdna-specification.png)
+
+An alternative is the SBGN "cornered rectangle" glyph for a complex:</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ComplexGlyphAlternative</rdfs:label>
+  <defaultGlyph rdf:datatype="http://www.w3.org/2001/XMLSchema#string">complex-sbgn-specification.png</defaultGlyph>
+  <glyphDirectory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SBOL-visual/Glyphs/FunctionalComponents/complex</glyphDirectory>
+</owl:Class>
+
 <owl:Class rdf:about="#Single-StrandedNucleicAcidGlyph">
   <rdfs:subClassOf rdf:resource="#Glyph"/>
   <rdfs:subClassOf rdf:resource="#MolecularSpeciesGlyph"/>

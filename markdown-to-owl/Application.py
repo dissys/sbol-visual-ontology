@@ -139,6 +139,9 @@ def parseFiles(directory):
             #print ("******************dir:" + filePath)
             parseFiles(filePath)
         elif file=="README.md":
+            if filePath.find("complex")>-1:
+                str1=""
+                str1="a"
             parseFile(filePath,identifiers)
             
 def parseFilesDel(directory):
